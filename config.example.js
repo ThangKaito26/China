@@ -16,8 +16,8 @@
 
 window.CONFIG = {
     // Thay thế chuỗi bên dưới bằng API key của bạn
-    OPENROUTER_API_KEY: 'YOUR_OPENROUTER_API_KEY_HERE',
-    
+    OPENROUTER_API_KEY: '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',
+
     // Cấu hình API
     API_URL: 'https://openrouter.ai/api/v1/chat/completions',
     MODEL: 'openai/gpt-4o-mini-2024-07-18'
