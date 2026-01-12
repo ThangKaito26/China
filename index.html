@@ -1,0 +1,2909 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinese Mastery Hub - Giao diện mới</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load API Configuration -->
+    <script src="config.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #d946ef;
+            /* Fuchsia-500 */
+            --primary-hover: #c026d3;
+            /* Fuchsia-600 */
+            --primary-light: #fae8ff;
+            /* Fuchsia-100 */
+            --secondary: #db2777;
+            /* Pink-600 */
+            --text-primary: #1e293b;
+            /* Slate-800 */
+            --text-secondary: #475569;
+            /* Slate-600 */
+            --surface: #ffffff;
+            --surface-alt: #f1f5f9;
+            /* Slate-100 */
+            --border: #e2e8f0;
+            /* Slate-200 */
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        html.dark {
+            --primary: #e879f9;
+            /* Fuchsia-400 */
+            --primary-hover: #d946ef;
+            /* Fuchsia-500 */
+            --text-primary: #f1f5f9;
+            /* Slate-100 */
+            --text-secondary: #94a3b8;
+            /* Slate-400 */
+            --surface: #1e293b;
+            /* Slate-800 */
+            --surface-alt: #334155;
+            /* Slate-700 */
+            --border: #475569;
+            /* Slate-600 */
+        }
+
+        html.dark body {
+            background-color: #0f172a;
+            /* Slate-900 */
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23334155' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #f8fafc;
+            /* Slate-50 */
+            color: var(--text-primary);
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e2e8f0' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background-attachment: fixed;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .main-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .header h1 span {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .lookup-card {
+            background-color: var(--surface);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 2rem;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 0.5rem;
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .input-group:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(217, 70, 239, 0.1);
+        }
+
+        .main-input {
+            flex-grow: 1;
+            border: none;
+            outline: none;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            background: transparent;
+            color: var(--text-primary);
+        }
+
+        .icon-btn {
+            background-color: transparent;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .icon-btn:hover {
+            background-color: var(--surface-alt);
+            color: var(--text-primary);
+        }
+
+        .primary-btn {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .primary-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .tabs-container {
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .tabs-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.25rem;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tab-btn.active,
+        .tab-btn:hover {
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .feature-btn {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1rem 1.25rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .feature-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .feature-btn .icon {
+            width: 2.25rem;
+            height: 2.25rem;
+            display: grid;
+            place-items: center;
+            border-radius: 0.5rem;
+            background-color: var(--primary-light);
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .feature-btn .pro-badge {
+            background: linear-gradient(135deg, #facc15, #f59e0b);
+            color: #422006;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.2rem 0.5rem;
+            border-radius: 9999px;
+            margin-left: auto;
+            text-transform: uppercase;
+        }
+
+        .external-links {
+            margin-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            padding-top: 1.5rem;
+        }
+
+        .external-links-title {
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .external-links .links-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .external-btn {
+            background-color: var(--surface-alt);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .external-btn:hover {
+            color: var(--primary);
+            border-color: var(--primary-light);
+            background-color: var(--primary-light);
+        }
+
+        .message-alert {
+            margin-top: 1.5rem;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 500;
+            text-align: center;
+            display: none;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .message-alert.show {
+            display: block;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .message-alert.error {
+            background: #fee2e2;
+            color: #dc2626;
+            border-color: #fecaca;
+        }
+
+        .message-alert.info {
+            background: #dbeafe;
+            color: #2563eb;
+            border-color: #bfdbfe;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-section {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            max-width: 1000px;
+            box-shadow: var(--shadow-lg);
+            display: none;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .section-header {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: .75rem;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: .75rem
+        }
+
+        .loading-overlay {
+            position: absolute;
+            inset: 0;
+            background: hsla(0, 0%, 100%, .95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            border-radius: 20px;
+            transition: opacity .3s ease
+        }
+
+        html.dark .loading-overlay {
+            background: rgba(30, 41, 59, 0.95);
+        }
+
+        .loading-spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--border);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem
+        }
+
+        .loading-text {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.125rem
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0)
+            }
+
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .exercise-item,
+        .question-item {
+            background: var(--surface-alt);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all .3s ease
+        }
+
+        .exercise-item:hover,
+        .question-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow)
+        }
+
+        .exercise-sentence,
+        .question-text {
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            line-height: 1.7
+        }
+
+        .exercise-options,
+        .question-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .75rem;
+            margin-bottom: 1rem
+        }
+
+        .option-btn {
+            background: var(--surface);
+            color: var(--primary);
+            border: 2px solid var(--primary-light);
+            padding: .75rem 1.25rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all .3s ease;
+            position: relative
+        }
+
+        html.dark .option-btn {
+            color: #f1f5f9;
+            border-color: var(--border);
+        }
+
+        .option-btn:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+            box-shadow: 0 4px 12px rgba(217, 70, 239, 0.2)
+        }
+
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: .7
+        }
+
+        .option-btn:disabled:hover {
+            transform: translateY(0);
+            box-shadow: none;
+            background-color: var(--surface)
+        }
+
+        .option-btn.correct {
+            background: var(--secondary) !important;
+            color: #fff !important;
+            border-color: var(--secondary) !important
+        }
+
+        .option-btn.incorrect {
+            background: #ef4444 !important;
+            color: #fff !important;
+            border-color: #dc2626 !important
+        }
+
+        .exercise-translation,
+        .question-translation {
+            font-style: italic;
+            color: var(--text-secondary);
+            font-size: .9rem
+        }
+
+        .exercise-feedback,
+        .question-feedback {
+            font-weight: 600;
+            margin-top: 1rem;
+            padding: .75rem 1rem;
+            border-radius: 8px;
+            background: var(--surface-alt)
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border)
+        }
+
+        th,
+        td {
+            padding: 1rem 1.25rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top
+        }
+
+        th {
+            background: var(--surface-alt);
+            font-weight: 600;
+            color: var(--text-primary)
+        }
+
+        tr:last-child td {
+            border-bottom: none
+        }
+
+        tr:hover {
+            background: rgba(217, 70, 239, 0.05)
+        }
+
+        .info-card {
+            background: var(--surface-alt);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem
+        }
+
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: .75rem;
+            display: flex;
+            align-items: center;
+            gap: .5rem
+        }
+
+        .card-title-alt {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            margin-bottom: .5rem;
+            color: var(--text-primary)
+        }
+
+        .conversation-container {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            background: var(--surface-alt);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden
+        }
+
+        .message-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem
+        }
+
+        .chat-message {
+            max-width: 75%;
+            padding: .875rem 1.25rem;
+            border-radius: 18px;
+            font-weight: 500;
+            line-height: 1.5;
+            animation: messageAppear .3s ease-out
+        }
+
+        .chat-message.ai {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            align-self: flex-start;
+            border-bottom-left-radius: 6px
+        }
+
+        .chat-message.user {
+            background: var(--primary);
+            color: #fff;
+            align-self: flex-end;
+            border-bottom-right-radius: 6px
+        }
+
+        @keyframes messageAppear {
+            from {
+                opacity: 0;
+                transform: translateY(10px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .chat-input-container {
+            padding: 1rem 1.5rem;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 1rem
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: .875rem 1.25rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            outline: none;
+            font-size: 1rem;
+            transition: all .3s ease;
+            color: var(--text-primary);
+            background-color: var(--surface-alt);
+        }
+
+        .chat-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(217, 70, 239, 0.1)
+        }
+
+        .chat-send-btn {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: .875rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all .3s ease
+        }
+
+        .chat-send-btn:hover {
+            background: var(--primary-hover)
+        }
+
+        .audio-player {
+            background: var(--surface-alt);
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid var(--border)
+        }
+
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem
+        }
+
+        .audio-btn {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .3s ease;
+            box-shadow: var(--shadow)
+        }
+
+        .audio-btn:hover {
+            background: var(--primary-hover);
+            transform: scale(1.05)
+        }
+
+        .audio-btn:disabled {
+            background-color: var(--text-secondary);
+            cursor: not-allowed;
+            transform: none;
+            opacity: .7
+        }
+
+        .audio-btn .spinning-loader {
+            width: 24px;
+            height: 24px;
+            border: 3px solid hsla(0, 0%, 100%, .3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite
+        }
+
+        .audio-status {
+            font-weight: 500;
+            color: var(--text-secondary);
+            min-width: 100px;
+            text-align: center
+        }
+
+        .transcript-toggle-btn {
+            background-color: var(--surface);
+            color: var(--primary);
+            border: 1px solid var(--primary-light);
+            padding: .5rem 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all .3s ease
+        }
+
+        .transcript-toggle-btn:hover {
+            background-color: var(--primary-light)
+        }
+
+        .speaking-practice-card {
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .textarea-input {
+            width: 100%;
+            min-height: 100px;
+            padding: 1rem;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            font-size: 1rem;
+            resize: vertical;
+            background-color: var(--surface);
+            color: var(--text-primary)
+        }
+
+        .textarea-input:focus {
+            outline: none;
+            border-color: var(--primary)
+        }
+
+        .pronunciation-record-btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: var(--shadow);
+        }
+
+        .pronunciation-record-btn:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .pronunciation-record-btn.recording {
+            animation: pulse 1.5s infinite;
+            background: #ef4444;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: var(--shadow);
+            }
+
+            50% {
+                transform: scale(1.05);
+                box-shadow: var(--shadow-lg);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: var(--shadow);
+            }
+        }
+
+        .pronunciation-score-card {
+            background: var(--surface);
+            border: 2px solid var(--primary-light);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            background: var(--primary-light);
+            border: 5px solid var(--primary);
+        }
+
+        .chat-message .translation {
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            font-style: italic;
+            color: var(--text-secondary);
+            opacity: 0.8;
+        }
+
+        .chat-message.user .translation {
+            color: #fbcfe8;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--surface);
+            margin: auto;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 700px;
+            animation: fadeInScale 0.3s ease-out;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .close-button {
+            color: var(--text-secondary);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: var(--text-primary);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .correction-table th {
+            background-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        html.dark .correction-table th {
+            background-color: #581c87;
+            color: #f0abfc;
+        }
+
+        .correction-table td strong {
+            color: var(--primary);
+        }
+
+        .unused-words-section {
+            background: var(--surface-alt);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        #unusedWordsList {
+            color: var(--text-secondary)
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                margin: 1.5rem auto;
+            }
+
+            .lookup-card,
+            .content-section {
+                padding: 1.5rem;
+            }
+
+            .header h1 {
+                font-size: 2.25rem;
+            }
+
+            .tab-btn {
+                padding: 0.75rem 1rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .main-container {
+                margin: 1rem auto;
+                padding: 0 0.75rem;
+            }
+
+            .header {
+                margin-bottom: 1.5rem;
+            }
+
+            .header h1 {
+                font-size: 1.875rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .lookup-card,
+            .content-section {
+                padding: 1rem;
+                border-radius: 1rem;
+            }
+
+            .input-group {
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+
+            .main-input {
+                flex-basis: 100%;
+                order: 1;
+                text-align: center;
+            }
+
+            .primary-btn {
+                flex-basis: 100%;
+                order: 3;
+                justify-content: center;
+            }
+
+            .icon-btn {
+                padding: 0.5rem;
+            }
+
+            .input-group>.icon-btn:first-of-type {
+                order: 2;
+                margin-left: auto;
+            }
+
+            .input-group>.icon-btn:nth-of-type(2) {
+                order: 2;
+                margin-right: auto;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content-section {
+                padding: 1.5rem 1rem;
+            }
+
+            .section-header {
+                font-size: 1.5rem;
+            }
+
+            .practice-actions {
+                gap: 0.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .practice-actions .feature-btn,
+            .practice-actions .primary-btn,
+            .pronunciation-record-btn {
+                padding: 0.75rem 1.25rem;
+                font-size: 0.875rem;
+                flex-grow: 0;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body class="transition-colors duration-300">
+
+    <div class="main-container">
+        <header class="header relative">
+            <div class="absolute top-0 right-0">
+                <button id="theme-toggle" class="icon-btn p-2 rounded-full" title="Chuyển chế độ Sáng/Tối">
+                    <svg id="theme-toggle-dark-icon" class="hidden h-6 w-6" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                    </svg>
+                    <svg id="theme-toggle-light-icon" class="hidden h-6 w-6" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 100 2h1z"
+                            fill-rule="evenodd" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+            <h1>Chào mừng đến với <span>Chinese Mastery Hub</span></h1>
+            <p>Công cụ học tiếng Trung toàn diện, tập trung vào Nghe & Nói</p>
+        </header>
+
+        <div class="lookup-card">
+            <div class="input-group">
+                <input type="text" class="main-input" id="vocabularyInput"
+                    placeholder="Nhập từ Tiếng Việt, Pinyin, hoặc chủ đề...">
+                <button class="icon-btn" id="btnPasteClipboard" title="Dán từ clipboard">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                        <path
+                            d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                    </svg>
+                </button>
+                <button class="icon-btn" id="btnClearInput" title="Xóa nội dung">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                        <path fill-rule="evenodd"
+                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                    </svg>
+                </button>
+                <button class="primary-btn" id="btnQuickSearch">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        <path d="M8 11.5v-3"></path>
+                        <path d="M14 11.5v-3"></path>
+                    </svg>
+                    Tra & Nghe
+                </button>
+            </div>
+            <div class="message-alert" id="messageBox"></div>
+            <div id="quickSearchResults" class="mt-4"></div>
+
+            <div class="tabs-container">
+                <button class="tab-btn active" data-tab="tab-learn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                    Học & Luyện Tập
+                </button>
+                <button class="tab-btn" data-tab="tab-create">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 20h9"></path>
+                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                    </svg>
+                    Sáng Tạo
+                </button>
+                <button class="tab-btn" data-tab="tab-analyze">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                    Phân Tích
+                </button>
+                <button class="tab-btn" data-tab="tab-interactive">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 18a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2"></path>
+                        <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+                        <circle cx="12" cy="10" r="2"></circle>
+                        <line x1="8" y1="2" x2="8" y2="4"></line>
+                        <line x1="16" y1="2" x2="16" y2="4"></line>
+                    </svg>
+                    Tương Tác AI
+                </button>
+            </div>
+
+            <div id="tab-learn" class="tab-content active">
+                <div class="features-grid">
+                    <button class="feature-btn" id="btnGenerateExplanation"><span class="icon">📚</span><span>Giải thích
+                            Từ vựng / Ngữ pháp</span></button>
+                    <button class="feature-btn" id="btnGenerateExamples"><span class="icon">💡</span><span>Tạo Ví dụ
+                            theo Ngữ cảnh</span></button>
+                    <button class="feature-btn" id="btnGenerateExercise"><span class="icon">✍️</span><span>Bài tập Điền
+                            từ & Trắc nghiệm</span></button>
+                    <button class="feature-btn" id="btnGenerateListeningFillInTheBlank"><span
+                            class="icon">🎧</span><span>Bài tập Nghe & Điền từ</span></button>
+                    <button class="feature-btn" id="btnGenerateReadingAndQuestions"><span
+                            class="icon">📖</span><span>Bài đọc (Pinyin) & Câu hỏi</span></button>
+                    <button class="feature-btn" id="btnGenerateListeningAndQuestions"><span
+                            class="icon">🗣️</span><span>Bài nghe & Câu hỏi</span></button>
+                </div>
+            </div>
+
+            <div id="tab-create" class="tab-content">
+                <div class="features-grid">
+                    <button class="feature-btn" id="btnCorrectPinyin"><span class="icon">📝</span><span>Sửa lỗi Pinyin
+                            <span class="pro-badge">PRO</span></span></button>
+                    <button class="feature-btn" id="btnGenerateDialogue"><span class="icon">💬</span><span>Tạo Đoạn Hội
+                            thoại</span></button>
+                    <button class="feature-btn" id="btnGenerateParagraphs"><span class="icon">📄</span><span>Viết Đoạn
+                            văn theo Từ khóa</span></button>
+                    <button class="feature-btn" id="btnSummarizeText"><span class="icon">📋</span><span>Tóm tắt Văn bản
+                            (Pinyin)</span></button>
+                    <button class="feature-btn" id="btnGenerateSituationalSentences"><span
+                            class="icon">📧</span><span>Tạo câu theo Tình huống</span></button>
+                </div>
+            </div>
+
+            <div id="tab-analyze" class="tab-content">
+                <div class="features-grid">
+                    <button class="feature-btn" id="btnCompareVocabulary"><span class="icon">⚖️</span><span>So sánh các
+                            Từ Pinyin tương tự</span></button>
+                    <button class="feature-btn" id="btnAnalyzeTones"><span class="icon">🎭</span><span>Phân tích Thanh
+                            điệu (Tones)</span></button>
+                    <button class="feature-btn" id="btnCheckPopularity"><span class="icon">📊</span><span>Kiểm tra Mức
+                            độ Phổ Biến</span></button>
+                    <button class="feature-btn" id="btnTranslateSentence"><span class="icon">🔁</span><span>Dịch câu
+                            Việt - Trung</span></button>
+                </div>
+            </div>
+
+            <div id="tab-interactive" class="tab-content">
+                <div class="features-grid">
+                    <button class="feature-btn" id="btnStartConversationSimulator"><span class="icon">🤖</span><span>Mô
+                            phỏng Hội thoại với AI</span></button>
+                    <button class="feature-btn" id="btnStartSpeakingPractice"><span class="icon">🎙️</span><span>Luyện
+                            phản xạ nói (AI)</span></button>
+                    <button class="feature-btn" id="btnStartPinyinPractice"><span class="icon">✍️</span><span>Luyện gõ
+                            Pinyin (AI)</span></button>
+                    <button class="feature-btn" id="btnStartSpeakingPracticeManual"><span
+                            class="icon">🗣️</span><span>Luyện phản xạ (Thủ công)</span></button>
+                </div>
+            </div>
+
+            <div class="external-links">
+                <h3 class="external-links-title">Công cụ tra cứu bên ngoài</h3>
+                <div class="links-group">
+                    <button class="external-btn" id="btnGoogleTranslate">Google Dịch</button>
+                    <button class="external-btn" id="btnPleco">Từ điển Pleco (web)</button>
+                    <button class="external-btn" id="btnForvo">Forvo (Phát âm)</button>
+                    <button class="external-btn" id="btnGoogleImages">Google Hình ảnh</button>
+                    <button class="external-btn" id="btnYouglish">YouGlish (Phát âm thực tế)</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="content-results-area" class="main-container">
+    </div>
+
+    <div id="correctionModal" class="modal">
+        <div class="modal-content">
+            <span id="closeCorrectionModal" class="close-button">&times;</span>
+            <h2 class="text-xl font-bold mb-4 text-fuchsia-600">Kiểm tra & Sửa lỗi</h2>
+            <div id="modalCorrectionContent">
+            </div>
+        </div>
+    </div>
+
+    <div id="manualSpeakingModal" class="modal">
+        <div class="modal-content">
+            <span id="closeManualSpeakingModal" class="close-button">&times;</span>
+            <h2 class="text-xl font-bold mb-4 text-fuchsia-600">Luyện phản xạ (Thủ công)</h2>
+            <div class="info-card mb-4">
+                <p class="mb-2 font-semibold">Nhập các câu tiếng Việt bạn muốn luyện tập, mỗi câu một dòng:</p>
+                <textarea id="manualSentencesInput" class="textarea-input" rows="8"
+                    placeholder="Ví dụ:&#10;Hôm nay thời tiết rất đẹp.&#10;Tôi đang học tiếng Trung.&#10;Bạn có khỏe không?"></textarea>
+            </div>
+            <div class="flex justify-end gap-3">
+                <button id="startManualPracticeBtn" class="primary-btn">Bắt đầu Luyện tập</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // --- Theme Toggle Logic ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+        const applyTheme = () => {
+            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                themeToggleLightIcon.classList.remove('hidden');
+                themeToggleDarkIcon.classList.add('hidden');
+            } else {
+                document.documentElement.classList.remove('dark');
+                themeToggleDarkIcon.classList.remove('hidden');
+                themeToggleLightIcon.classList.add('hidden');
+            }
+        };
+
+        themeToggleBtn.addEventListener('click', function () {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('color-theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+            applyTheme();
+        });
+
+        // --- Tabbed Interface Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            applyTheme();
+
+            const tabs = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.getElementById(tab.dataset.tab).classList.add('active');
+                });
+            });
+            attachEventListeners();
+        });
+
+
+        // --- Global State ---
+        let conversationHistory = [];
+        let currentUtteranceQueue = [];
+        let isSpeakingFullDialogue = false;
+        let recognition; // Global variable for SpeechRecognition instance
+        let isRecording = false; // To track recording state
+        const loopPlaybackState = { active: false, text: '', button: null };
+
+        // --- DOM Element References ---
+        const vocabularyInput = document.getElementById('vocabularyInput');
+        const messageBox = document.getElementById('messageBox');
+        const contentResultsArea = document.getElementById('content-results-area');
+        const quickSearchResults = document.getElementById('quickSearchResults');
+        const correctionModal = document.getElementById('correctionModal');
+        const closeCorrectionModalBtn = document.getElementById('closeCorrectionModal');
+        const modalCorrectionContent = document.getElementById('modalCorrectionContent');
+        const contentContainers = {};
+
+        // --- UI Helper Functions ---
+        function hideAllSections() {
+            stopLoopPlayback();
+            if (speechSynthesis.speaking || speechSynthesis.pending) {
+                speechSynthesis.cancel();
+            }
+            if (recognition && typeof recognition.abort === 'function') {
+                recognition.abort();
+            }
+            currentUtteranceQueue = [];
+            isSpeakingFullDialogue = false;
+
+            if (isRecording) {
+                if (recognition) recognition.stop();
+                isRecording = false;
+                const recordBtn = document.getElementById('record-pronunciation-btn');
+                if (recordBtn) {
+                    recordBtn.classList.remove('recording');
+                    recordBtn.querySelector('span').textContent = 'Ghi âm & Chấm điểm';
+                }
+            }
+
+            contentResultsArea.innerHTML = '';
+            quickSearchResults.innerHTML = '';
+            Object.keys(contentContainers).forEach(key => delete contentContainers[key]);
+        }
+
+        function createContentSection(featureKey, headerText) {
+            hideAllSections();
+            const containerId = `${featureKey}Container`;
+            const overlayId = `${featureKey}LoadingOverlay`;
+            const contentId = `${featureKey}Content`;
+
+            const sectionHTML = `
+                <div class="content-section" id="${containerId}" style="display: block;">
+                    <div class="loading-overlay" id="${overlayId}">
+                        <div class="loading-spinner"></div>
+                        <div class="loading-text">${headerText}...</div>
+                    </div>
+                    <div id="${contentId}"></div>
+                </div>
+            `;
+            contentResultsArea.innerHTML = sectionHTML;
+
+            contentContainers[featureKey] = {
+                container: document.getElementById(containerId),
+                overlay: document.getElementById(overlayId),
+                content: document.getElementById(contentId)
+            };
+
+            document.getElementById(containerId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            return contentContainers[featureKey];
+        }
+
+        function showMessage(message, type = 'error') {
+            messageBox.textContent = message;
+            messageBox.className = `message-alert show ${type}`;
+        }
+
+        function hideMessage() {
+            messageBox.className = 'message-alert';
+        }
+
+        function clearInput() {
+            vocabularyInput.value = '';
+            hideMessage();
+            vocabularyInput.focus();
+            hideAllSections();
+        }
+
+        async function pasteFromClipboard() {
+            hideMessage();
+            if (!navigator.clipboard?.readText) {
+                showMessage('Trình duyệt của bạn không hỗ trợ dán tự động. Vui lòng dùng tổ hợp phím Ctrl+V.', 'error');
+                return;
+            }
+            try {
+                const text = await navigator.clipboard.readText();
+                vocabularyInput.value = text;
+                showMessage('Đã dán thành công!', 'info');
+            } catch (err) {
+                console.error('Lỗi khi dán:', err);
+                showMessage('Dán tự động bị chặn bởi trình duyệt. Vui lòng dùng Ctrl+V hoặc Cmd+V để dán.', 'error');
+            }
+        }
+
+        // --- Main Feature Functions ---
+        function openLink(type) {
+            const vocabulary = vocabularyInput.value.trim();
+            if (!vocabulary) {
+                showMessage('Vui lòng nhập từ vựng để tìm kiếm.', 'error');
+                return;
+            }
+            const urls = {
+                googleTranslate: `https://translate.google.com/?sl=zh-CN&tl=vi&text=${encodeURIComponent(vocabulary)}&op=translate`,
+                pleco: `https://www.pleco.com/`, // Pleco is an app, linking to its homepage.
+                forvo: `https://forvo.com/search/${encodeURIComponent(vocabulary)}/zh/`,
+                googleImages: `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(vocabulary)}`,
+                youglish: `https://youglish.com/pronounce/${encodeURIComponent(vocabulary)}/chinese`
+            };
+            if (urls[type]) {
+                window.open(urls[type], '_blank');
+            }
+        }
+
+        async function callGemini(prompt, schema = null) {
+            // Check if config is loaded
+            if (!window.CONFIG || !window.CONFIG.OPENROUTER_API_KEY) {
+                throw new Error('Thiếu file config.js! Vui lòng tạo file config.js từ config.example.js và thêm API key của bạn.');
+            }
+
+            // Check if API key is still placeholder
+            if (window.CONFIG.OPENROUTER_API_KEY === 'YOUR_OPENROUTER_API_KEY_HERE') {
+                throw new Error('Vui lòng thay thế API key trong file config.js bằng key thật của bạn. Lấy key miễn phí tại: https://openrouter.ai/keys');
+            }
+
+            // OpenRouter API configuration
+            const apiKey = window.CONFIG.OPENROUTER_API_KEY;
+            const apiUrl = window.CONFIG.API_URL || "https://openrouter.ai/api/v1/chat/completions";
+
+            // Prepare the system message for JSON schema if provided
+            let systemMessage = "You are a helpful assistant that responds in JSON format.";
+            if (schema) {
+                systemMessage += " You must respond ONLY with valid JSON that matches the requested schema. Do not include any markdown formatting, code blocks, or explanatory text - just the raw JSON object.";
+            }
+
+            // Add JSON instruction to the prompt
+            let enhancedPrompt = prompt;
+            if (schema) {
+                enhancedPrompt += "\n\nIMPORTANT: Respond with ONLY valid JSON. Do not wrap it in markdown code blocks or add any other text.";
+            }
+
+            // Build the payload for OpenRouter API
+            const payload = {
+                model: window.CONFIG.MODEL || "openai/gpt-4o-mini-2024-07-18",
+                messages: [
+                    {
+                        role: "system",
+                        content: systemMessage
+                    },
+                    {
+                        role: "user",
+                        content: enhancedPrompt
+                    }
+                ],
+                temperature: 0.7,
+                response_format: { type: "json_object" }
+            };
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`,
+                    'HTTP-Referer': window.location.href,
+                    'X-Title': 'Chinese Mastery Hub'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                const errorBody = await response.text();
+                console.error("API Error Response:", errorBody);
+                throw new Error(`Lỗi API: ${response.status} ${response.statusText}`);
+            }
+
+            const result = await response.json();
+
+            if (result.choices && result.choices[0]?.message?.content) {
+                let text = result.choices[0].message.content.trim();
+
+                // Remove markdown code blocks if present
+                if (text.startsWith('```json')) {
+                    text = text.replace(/^```json\s*\n/, '').replace(/\n```\s*$/, '');
+                } else if (text.startsWith('```')) {
+                    text = text.replace(/^```\s*\n/, '').replace(/\n```\s*$/, '');
+                }
+
+                try {
+                    let parsedData = JSON.parse(text);
+
+                    // Handle cases where the response is wrapped in an extra object
+                    // For example: { "examples": [...] } or { "data": {...} }
+                    if (parsedData && typeof parsedData === 'object' && !Array.isArray(parsedData)) {
+                        const keys = Object.keys(parsedData);
+                        // If there's only one key and its value is an array or object, unwrap it
+                        if (keys.length === 1 && (Array.isArray(parsedData[keys[0]]) || typeof parsedData[keys[0]] === 'object')) {
+                            console.log('Unwrapping nested response from key:', keys[0]);
+                            parsedData = parsedData[keys[0]];
+                        }
+                    }
+
+                    return parsedData;
+                } catch (e) {
+                    console.error("Lỗi phân tích JSON:", e, "Dữ liệu gốc:", text);
+                    throw new Error("Không thể phân tích phản hồi từ API. Phản hồi không phải là JSON hợp lệ.");
+                }
+            }
+            console.error("Phản hồi API không hợp lệ:", result);
+            throw new Error('Cấu trúc phản hồi API không mong đợi hoặc trống.');
+        }
+
+        async function handleFeature(featureKey, headerText, promptGenerator, renderer, inputValidator = (input) => !!input) {
+            const { container, content, overlay } = createContentSection(featureKey, `Đang ${headerText.toLowerCase()}`);
+
+            let featureInput;
+            if (featureKey === 'speakingPracticeManual') {
+                featureInput = arguments[arguments.length - 1];
+            } else {
+                featureInput = vocabularyInput.value.trim();
+            }
+
+            if (!inputValidator(featureInput)) {
+                showMessage(`Vui lòng nhập đầu vào hợp lệ cho chức năng này.`, 'error');
+                hideAllSections();
+                return;
+            }
+
+            try {
+                if (['conversationSimulator', 'speakingPractice', 'speakingPracticeManual', 'pinyinPractice'].includes(featureKey)) {
+                    await renderer(featureInput, content, headerText);
+                } else {
+                    const { prompt, schema } = promptGenerator(featureInput);
+                    const data = await callGemini(prompt, schema);
+                    // Debug logging for explanation feature
+                    if (featureKey === 'explanation') {
+                        console.log('Explanation API Response:', data);
+                        console.log('Has synonyms:', !!data.synonyms, data.synonyms);
+                        console.log('Has antonyms:', !!data.antonyms, data.antonyms);
+                        console.log('Has collocations:', !!data.collocations, data.collocations);
+                    }
+                    renderer(data, content, headerText, featureInput);
+                }
+            } catch (error) {
+                showMessage(`Có lỗi xảy ra khi tạo nội dung. Vui lòng thử lại.`, 'error');
+                console.error(`Lỗi với chức năng ${featureKey}:`, error);
+                content.innerHTML = `<p class="text-red-500 font-semibold">Đã xảy ra lỗi: ${error.message}</p>`;
+            } finally {
+                if (overlay) overlay.style.display = 'none';
+            }
+        }
+
+        // --- RENDERERS ---
+        const renderers = {
+            quickLookup: (data, el) => {
+                el.innerHTML = `
+                    <div class="info-card p-4">
+                      <div class="flex items-center gap-4">
+                         <button class="audio-btn" style="width: 44px; height: 44px; min-width: 44px;" onclick="speakText('${data.hanzi.replace(/'/g, "\\'")}')" title="Nghe lại">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M11.536 14.01A8.473 8.473 0 0 0 14.026 8a8.473 8.473 0 0 0-2.49-6.01l-1.414 1.414A6.472 6.472 0 0 1 12.026 8c0 1.966-.893 3.738-2.29 4.949l1.414 1.414z"/><path d="M10.121 12.596A6.48 6.48 0 0 0 12.026 8a6.48 6.48 0 0 0-1.905-4.596l-1.414 1.414A4.486 4.486 0 0 1 10.026 8c0 1.353-.6 2.544-1.515 3.328l1.414 1.414zM8.707 11.182A4.5 4.5 0 0 0 10.026 8a4.5 4.5 0 0 0-1.319-3.182L8.707 5.18a2.5 2.5 0 0 1 0 5.64l.001.002zM6.343 4.828a.5.5 0 0 0 0 .707L7.05 6.243a.5.5 0 0 0 .707 0l.707-.707a.5.5 0 0 0 0-.707L7.757 4.12a.5.5 0 0 0-.707 0l-.708.707zM4.717 6.464a.5.5 0 0 0 0 .708L5.424 7.88a.5.5 0 0 0 .707 0l.707-.707a.5.5 0 0 0 0-.708L6.128 5.757a.5.5 0 0 0-.707 0l-.708.707zM2 8a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1A.5.5 0 0 1 2 8z"/></svg>
+                         </button>
+                         <div>
+                            <p class="text-xl font-semibold text-fuchsia-600 dark:text-fuchsia-400">${data.pinyin}</p>
+                            <p class="mt-1 text-lg">${data.meaning}</p>
+                         </div>
+                      </div>
+                    </div>
+                `;
+            },
+            examples: (data, el, headerText) => {
+                el.innerHTML = `
+                    <h2 class="section-header">💡 ${headerText}</h2>
+                    <div class="table-container">
+                        <table>
+                            <thead><tr><th>Pinyin</th><th>Tiếng Việt</th><th>Phát âm</th></tr></thead>
+                            <tbody>
+                            ${data.map(item => `
+                                <tr>
+                                    <td class="font-mono">${item.pinyin}</td>
+                                    <td>${item.vietnamese}</td>
+                                    <td>
+                                        <button class="icon-btn" onclick="speakText('${item.hanzi.replace(/'/g, "\\'")}')" title="Nghe câu này">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M11.536 14.01A8.473 8.473 0 0 0 14.026 8a8.473 8.473 0 0 0-2.49-6.01l-1.414 1.414A6.472 6.472 0 0 1 12.026 8c0 1.966-.893 3.738-2.29 4.949l1.414 1.414zM8.707 11.182A4.5 4.5 0 0 0 10.026 8a4.5 4.5 0 0 0-1.319-3.182L8.707 5.18a2.5 2.5 0 0 1 0 5.64l.001.002z"/></svg>
+                                        </button>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            },
+            exercise: (data, el, headerText) => {
+                el.innerHTML = `<h2 class="section-header">✨ ${headerText}</h2>` + data.map(item => `
+                    <div class="exercise-item" data-hanzi="${item.hanzi_sentence.replace(/"/g, '&quot;')}">
+                        <p class="exercise-sentence font-mono">${item.id}. ${item.pinyin_with_blank}</p>
+                        <div class="exercise-options">${item.options.map(option => `<button class="option-btn font-mono" data-value="${option.replace(/"/g, '&quot;')}" onclick="checkFillInBlankAnswer(this, '${item.correct_word_pinyin.replace(/'/g, "\\'")}')">${option}</button>`).join('')}</div>
+                        <p class="exercise-translation">(Dịch: ${item.translation})</p>
+                        <div class="exercise-feedback"></div>
+                    </div>`).join('');
+            },
+            listeningFillInTheBlank: (data, el, headerText) => {
+                el.innerHTML = `<h2 class="section-header">🎧 ${headerText}</h2>` + data.map(item => `
+                    <div class="exercise-item">
+                        <div class="flex items-center gap-4 mb-4">
+                             <button class="audio-btn" onclick="playQuestionAudio(this, '${item.hanzi_sentence.replace(/'/g, "\\'")}')" title="Nghe câu">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M10.804 8 5 4.633v6.734L10.804 8zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm15 0a7 7 0 1 0-14 0 7 7 0 0 0 14 0z"/></svg>
+                             </button>
+                             <p class="exercise-sentence flex-1 font-mono">${item.id}. ${item.pinyin_with_blank}</p>
+                        </div>
+                        <div class="exercise-options">${item.options.map(option => `<button class="option-btn font-mono" data-value="${option.replace(/"/g, '&quot;')}" onclick="checkFillInBlankAnswer(this, '${item.correct_word_pinyin.replace(/'/g, "\\'")}')">${option}</button>`).join('')}</div>
+                        <p class="exercise-translation">(Dịch: ${item.translation})</p>
+                        <div class="exercise-feedback"></div>
+                    </div>`).join('');
+            },
+            explanation: (data, el, headerText, originalInput) => {
+                // Ensure data has all required fields with defaults
+                if (!data) {
+                    console.error('Explanation data is null or undefined');
+                    data = {};
+                }
+                data.synonyms = data.synonyms || [];
+                data.antonyms = data.antonyms || [];
+                data.collocations = data.collocations || [];
+                data.memory_tips = data.memory_tips || [];
+
+                console.log('Rendering explanation with data:', {
+                    hasSynonyms: data.synonyms?.length || 0,
+                    hasAntonyms: data.antonyms?.length || 0,
+                    hasCollocations: data.collocations?.length || 0,
+                    hasMemoryTips: data.memory_tips?.length || 0
+                });
+
+                const renderStars = (rating) => {
+                    const fullStars = Math.round(rating);
+                    const emptyStars = 5 - fullStars;
+                    return '★'.repeat(fullStars) + '☆'.repeat(emptyStars);
+                };
+
+                const renderWordList = (items, title, icon, alwaysShow = false) => {
+                    if (!items || !Array.isArray(items) || items.length === 0) {
+                        if (alwaysShow) {
+                            return `
+                                <div class="info-card">
+                                    <h3 class="card-title">${icon} ${title}</h3>
+                                    <div class="space-y-3">
+                                        <p class="text-slate-500 dark:text-slate-400 italic text-center py-4">Chưa có dữ liệu</p>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                        return '';
+                    }
+                    return `
+                        <div class="info-card">
+                            <h3 class="card-title">${icon} ${title}</h3>
+                            <div class="space-y-3">
+                                ${items.map(item => {
+                        const escapedPinyin = String(item.pinyin || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                        const escapedHanzi = String(item.hanzi || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                        const escapedMeaning = String(item.meaning || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                        const rating = Number(item.rating) || 0;
+                        return `
+                                        <div class="flex items-center justify-between py-2 border-b border-slate-200 dark:border-slate-700 last:border-b-0">
+                                            <div class="flex-1">
+                                                <p class="font-mono text-slate-800 dark:text-slate-200">${escapedPinyin}</p>
+                                                <p class="text-slate-600 dark:text-slate-400">${escapedHanzi}</p>
+                                                <p class="text-sm text-slate-500 dark:text-slate-500 italic">${escapedMeaning}</p>
+                                            </div>
+                                            <div class="ml-4 text-yellow-500 text-lg" title="Đánh giá: ${rating}/5">
+                                                ${renderStars(rating)}
+                                            </div>
+                                        </div>
+                                    `;
+                    }).join('')}
+                            </div>
+                        </div>
+                    `;
+                };
+
+                const memoryTipsSection = data.memory_tips && Array.isArray(data.memory_tips) && data.memory_tips.length > 0 ? `
+                    <div class="info-card">
+                        <h3 class="card-title">💡 Mẹo để dễ nhớ</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            ${data.memory_tips.map(tip => `<li class="text-slate-800 dark:text-slate-200">${String(tip).replace(/</g, '&lt;').replace(/>/g, '&gt;')}</li>`).join('')}
+                        </ul>
+                    </div>
+                ` : '';
+
+                const synonymsSection = renderWordList(data.synonyms, 'Từ đồng nghĩa', '👍', true);
+                const antonymsSection = renderWordList(data.antonyms, 'Từ trái nghĩa', '👎', true);
+
+                // Render collocations as a table, sorted by rating (highest first)
+                const collocationsSection = (() => {
+                    if (!data.collocations || !Array.isArray(data.collocations) || data.collocations.length === 0) {
+                        return `
+                            <div class="info-card">
+                                <h3 class="card-title">🤝 Cách dùng phổ biến (Collocations)</h3>
+                                <div class="table-container">
+                                    <p class="text-slate-500 dark:text-slate-400 italic text-center py-4">Chưa có dữ liệu</p>
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    // Sort by rating descending
+                    const sortedCollocations = [...data.collocations].sort((a, b) => {
+                        const ratingA = Number(a.rating) || 0;
+                        const ratingB = Number(b.rating) || 0;
+                        return ratingB - ratingA;
+                    });
+
+                    return `
+                        <div class="info-card">
+                            <h3 class="card-title">🤝 Cách dùng phổ biến (Collocations)</h3>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Pinyin</th>
+                                            <th>Chữ Hán</th>
+                                            <th>Nghĩa</th>
+                                            <th>Mức độ phổ biến</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${sortedCollocations.map(item => {
+                        const escapedPinyin = String(item.pinyin || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                        const escapedHanzi = String(item.hanzi || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                        const escapedMeaning = String(item.meaning || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                        const rating = Number(item.rating) || 0;
+                        return `
+                                                <tr>
+                                                    <td class="font-mono">${escapedPinyin}</td>
+                                                    <td>${escapedHanzi}</td>
+                                                    <td>${escapedMeaning}</td>
+                                                    <td class="text-yellow-500 text-lg" title="Đánh giá: ${rating}/5">${renderStars(rating)}</td>
+                                                </tr>
+                                            `;
+                    }).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    `;
+                })();
+
+                const speakTarget = (data.hanzi || data.hanzi_word || originalInput || '').trim();
+                const speakButtonHtml = speakTarget ? `
+                    <button class="primary-btn flex-shrink-0" onclick="speakText('${speakTarget.replace(/'/g, "\\'")}')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9v6h4l5 4V5l-5 4H5z"></path><line x1="16" y1="8" x2="16" y2="16"></line><line x1="20" y1="5" x2="20" y2="19"></line></svg>
+                        Nghe cụm từ
+                    </button>
+                ` : '';
+                const loopButtonHtml = speakTarget ? `
+                    <button class="feature-btn justify-center" data-loop-default="🔁 Nghe liên tục" data-loop-stop="⏹ Dừng lặp" data-loop-state="stopped" onclick="toggleLoopPlayback(this, '${speakTarget.replace(/'/g, "\\'")}')">
+                        🔁 Nghe liên tục
+                    </button>
+                ` : '';
+                const audioControlsHtml = speakTarget ? `
+                    <div class="flex flex-col gap-2 w-full md:w-auto">
+                        ${speakButtonHtml}
+                        ${loopButtonHtml}
+                    </div>
+                ` : '';
+
+                el.innerHTML = `
+                    <h2 class="section-header">📚 ${headerText}: ${originalInput}</h2>
+                    <div class="info-card">
+                        <h3 class="card-title">📖 Giải thích chung</h3>
+                        <div class="flex flex-col md:flex-row md:items-center gap-4">
+                            <p class="flex-1">${data.explanation}</p>
+                            ${audioControlsHtml}
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <h3 class="card-title">🔍 Phân tích từng thành phần</h3>
+                        <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Pinyin</th>
+                                    <th>Chữ Hán</th>
+                                    <th>Nghĩa gốc</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${data.components.map(item => `
+                                    <tr>
+                                        <td class="font-mono">${item.pinyin}</td>
+                                        <td>${item.hanzi}</td>
+                                        <td>${item.meaning}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                    ${data.component_examples ? `
+                    <div class="info-card">
+                        <h3 class="card-title">📖 Ví dụ mở rộng theo từng chữ Hán</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="width: 100px;">Thành phần</th>
+                                        <th style="width: 140px;">Ví dụ</th>
+                                        <th style="width: 180px;">Pinyin</th>
+                                        <th>Nghĩa tiếng Việt</th>
+                                        <th style="width: 60px;">Phát âm</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${Object.entries(data.component_examples).map(([char, examples]) => {
+                    return examples.map((ex, idx) => `
+                                            <tr class="${idx === 0 ? 'border-t-2 border-fuchsia-200 dark:border-fuchsia-800' : ''}">
+                                                ${idx === 0 ? `
+                                                    <td rowspan="${examples.length}" class="text-center font-bold text-2xl text-fuchsia-600 dark:text-fuchsia-400 bg-slate-50 dark:bg-slate-800/50 align-middle">
+                                                        <div class="flex flex-col items-center gap-2">
+                                                            <span>${char}</span>
+                                                            <button class="icon-btn" onclick="speakText('${char}')" title="Nghe ký tự này">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M11.536 14.01A8.473 8.473 0 0 0 14.026 8a8.473 8.473 0 0 0-2.49-6.01l-1.414 1.414A6.472 6.472 0 0 1 12.026 8c0 1.966-.893 3.738-2.29 4.949l1.414 1.414z"/></svg>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                ` : ''}
+                                                <td class="font-bold text-lg text-slate-800 dark:text-slate-200">${idx + 1}. ${ex.hanzi}</td>
+                                                <td class="font-mono text-fuchsia-600 dark:text-fuchsia-400">${ex.pinyin}</td>
+                                                <td>${ex.meaning}</td>
+                                                <td class="text-center">
+                                                    <button class="icon-btn" onclick="speakText('${ex.hanzi}')" title="Nghe từ này">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M11.536 14.01A8.473 8.473 0 0 0 14.026 8a8.473 8.473 0 0 0-2.49-6.01l-1.414 1.414A6.472 6.472 0 0 1 12.026 8c0 1.966-.893 3.738-2.29 4.949l1.414 1.414z"/></svg>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        `).join('');
+                }).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    ` : ''}
+                    ${memoryTipsSection}
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        ${synonymsSection}
+                        ${antonymsSection}
+                    </div>
+                    ${collocationsSection}
+                    <div class="info-card">
+                        <h3 class="card-title">⚠️ Lưu ý cách dùng</h3>
+                        <p>${data.usage_notes}</p>
+                    </div>
+                `;
+            },
+            correction: (data, el, headerText) => {
+                el.innerHTML = `
+                    <h2 class="section-header">✍️ ${headerText}</h2>
+                    <div class="info-card">
+                        <p><strong>Pinyin gốc:</strong> <span class="text-red-500 line-through font-mono">${data.original_pinyin}</span></p>
+                        <p class="mt-2"><strong>Pinyin đã sửa:</strong> <span class="text-green-600 font-semibold font-mono">${data.corrected_pinyin}</span></p>
+                    </div>
+                    <div class="info-card">
+                        <h3 class="card-title">🔄 Các thay đổi:</h3>
+                        <ul class="list-disc list-inside">${data.changes.map(change => `<li>${change}</li>`).join('')}</ul>
+                    </div>
+                     <div class="info-card">
+                        <h3 class="card-title">🇻🇳 Dịch nghĩa:</h3>
+                        <p><em>${data.translation}</em></p>
+                    </div>`;
+            },
+            dialogue: (data, el, headerText) => {
+                el.innerHTML = `
+                    <h2 class="section-header flex justify-between items-center">
+                        <span>💬 ${headerText}</span>
+                        <button id="playFullDialogueBtn" class="primary-btn text-sm px-3 py-1.5" title="Phát âm toàn bộ đoạn hội thoại">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M10.804 8 5 4.633v6.734L10.804 8zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm15 0a7 7 0 1 0-14 0 7 7 0 0 0 14 0z"/></svg>
+                             Phát âm toàn bộ
+                        </button>
+                    </h2>
+                    <div class="flex flex-col gap-4 p-4 rounded-lg bg-slate-50 dark:bg-slate-900/50">
+                    ${data.dialogue.map((line) => `
+                        <div class="w-full flex ${line.character === data.characters[0] ? 'justify-start' : 'justify-end'}" data-hanzi="${line.hanzi.replace(/'/g, "\\'")}">
+                            <div class="p-3 rounded-xl max-w-xl ${line.character === data.characters[0] ? 'bg-white dark:bg-slate-700 rounded-bl-none' : 'bg-fuchsia-50 dark:bg-fuchsia-950 rounded-br-none'} shadow-sm border border-black/5 dark:border-white/5">
+                                <div class="flex items-start gap-3">
+                                     <div class="flex-grow">
+                                        <strong class="font-bold block ${line.character === data.characters[0] ? 'text-pink-600 dark:text-pink-400' : 'text-fuchsia-600 dark:text-fuchsia-400'}">${line.character}</strong>
+                                        <p class="text-slate-800 dark:text-slate-200 mt-1 font-mono">${line.pinyin}</p>
+                                    </div>
+                                    <button class="icon-btn flex-shrink-0 -mt-1 -mr-1" onclick="speakText(this.closest('[data-hanzi]').dataset.hanzi)" title="Nghe câu này">
+                                       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M11.536 14.01A8.473 8.473 0 0 0 14.026 8a8.473 8.473 0 0 0-2.49-6.01l-1.414 1.414A6.472 6.472 0 0 1 12.026 8c0 1.966-.893 3.738-2.29 4.949l1.414 1.414zM8.707 11.182A4.5 4.5 0 0 0 10.026 8a4.5 4.5 0 0 0-1.319-3.182L8.707 5.18a2.5 2.5 0 0 1 0 5.64l.001.002z"/></svg>
+                                    </button>
+                                </div>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 italic mt-2">(Dịch: ${line.vietnamese})</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                    </div>`;
+
+                document.getElementById('playFullDialogueBtn').addEventListener('click', () => {
+                    const allHanziLines = Array.from(el.querySelectorAll('[data-hanzi]')).map(div => div.dataset.hanzi);
+                    playFullDialogue(allHanziLines);
+                });
+            },
+            summary: (data, el, headerText) => {
+                el.innerHTML = `
+                    <h2 class="section-header">📋 ${headerText}</h2>
+                    <div class="info-card"><p class="leading-relaxed">${data.summary.replace(/\n/g, '<br>')}</p></div>`;
+            },
+            paragraphs: (data, el, headerText) => {
+                el.innerHTML = `
+                    <h2 class="section-header">📄 ${headerText}</h2>
+                     <div class="info-card">
+                        <h3 class="card-title-alt">📝 Đoạn văn Pinyin:</h3>
+                        <p class="font-mono leading-relaxed" data-hanzi="${data.hanzi_paragraph.replace(/"/g, '&quot;')}">${data.pinyin_paragraph}</p>
+                        <button class="primary-btn mt-4" onclick="speakText(this.previousElementSibling.dataset.hanzi)">Nghe đoạn văn</button>
+                    </div>
+                    <div class="info-card">
+                        <h3 class="card-title-alt">📖 Bản dịch tiếng Việt:</h3>
+                        <p>${data.vietnamese_translation}</p>
+                    </div>
+                    <div class="info-card">
+                        <h3 class="card-title-alt">📖 Bản dịch hỗn hợp (Việt - Pinyin):</h3>
+                        <p>${data.mixed_vietnamese_translation}</p>
+                    </div>
+                    <div class="info-card">
+                        <h3 class="card-title-alt">🗣️ Từ vựng đã sử dụng:</h3>
+                        <div class="table-container">
+                        <table>
+                            <thead><tr><th>Pinyin</th><th>Nghĩa</th></tr></thead>
+                            <tbody>
+                                ${data.vocabulary_list.map(item => `<tr><td class="font-mono">${item.pinyin}</td><td>${item.meaning}</td></tr>`).join('')}
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>`;
+            },
+            popularity: (data, el, headerText) => {
+                const renderPopularityBadge = (status) => {
+                    let colorClasses = "bg-gray-100 text-gray-800 dark:bg-gray-900/50 dark:text-gray-200";
+                    if (status.includes("Phổ biến")) colorClasses = "bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-200";
+                    if (status.includes("Ít")) colorClasses = "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-200";
+                    return `<span class="font-medium px-2 py-1 rounded-full ${colorClasses}">${status}</span>`;
+                };
+
+                el.innerHTML = `
+                    <h2 class="section-header">📊 ${headerText}</h2>
+                     <div class="table-container">
+                    <table>
+                        <thead><tr><th>Từ/Cụm từ (Pinyin)</th><th>Mức độ</th><th>Bản dịch</th><th>Ngữ cảnh</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-bold text-lg text-fuchsia-600 dark:text-fuchsia-400 font-mono">${data.original_item.pinyin}</td>
+                                <td>${renderPopularityBadge(data.original_item.popularity_status)}</td>
+                                <td>${data.original_item.translation}</td>
+                                <td>${data.original_item.context_explanation}</td>
+                            </tr>
+                            ${(data.suggested_alternatives && data.suggested_alternatives.length > 0) ? data.suggested_alternatives.map(alt => `
+                                <tr>
+                                    <td class="font-semibold font-mono">${alt.pinyin}</td>
+                                    <td>${renderPopularityBadge(alt.popularity_status)}</td>
+                                    <td>${alt.translation}</td>
+                                    <td>${alt.context_explanation}</td>
+                                </tr>`).join('') : `<tr><td colspan="4" class="text-center italic text-gray-500">Không có gợi ý thay thế.</td></tr>`
+                    }
+                        </tbody>
+                    </table>
+                    </div>`;
+            },
+            reading: (data, el, headerText) => {
+                el.innerHTML = `
+                    <h2 class="section-header">📖 ${headerText}</h2>
+                    <div class="info-card">
+                        <h3 class="card-title">📝 Bài đọc (Pinyin)</h3>
+                        <div class="prose max-w-none dark:text-gray-300 font-mono leading-relaxed" data-hanzi-passage="${data.reading_passage_hanzi.replace(/"/g, '&quot;')}">${data.reading_passage_pinyin.replace(/\n/g, '<br>')}</div>
+                         <button class="primary-btn mt-4" onclick="speakText(this.previousElementSibling.dataset.hanziPassage)">Nghe bài đọc</button>
+                    </div>
+                    <h3 class="card-title mt-6">❓ Câu hỏi</h3>` +
+                    data.questions.map(q => `
+                    <div class="question-item" data-correct-answer="${q.correct_option_pinyin.replace(/"/g, '&quot;')}" data-question-translation="${q.question_text_vietnamese.replace(/"/g, '&quot;')}">
+                        <p class="question-text">${q.id}. ${q.question_text_vietnamese}</p>
+                        <div class="question-options">${q.options_pinyin.map(opt => `<button class="option-btn font-mono" onclick="checkMultipleChoiceAnswer(this)">${opt}</button>`).join('')}</div>
+                        <div class="question-feedback"></div>
+                    </div>`).join('');
+            },
+            listening: (data, el, headerText) => {
+                el.innerHTML = `
+                    <h2 class="section-header">🎧 ${headerText}</h2>
+                    <div class="info-card mb-4">
+                        <div id="audioPlayerContainer"></div>
+                        <div class="flex justify-center mt-4">
+                           <button id="toggleTranscriptBtn" class="transcript-toggle-btn">📜 Hiện văn bản</button>
+                        </div>
+                    </div>
+                    <div id="transcriptContent" class="info-card hidden">
+                        <h3 class="card-title">📝 Văn bản bài nghe (Pinyin)</h3>
+                        <div class="prose max-w-none dark:text-gray-300 p-2 font-mono">${data.audio_script_pinyin.replace(/\n/g, '<br>')}</div>
+                        <h3 class="card-title-alt mt-4">📖 Bản dịch</h3>
+                        <div class="prose max-w-none dark:text-gray-400 p-2">${data.audio_script_translation.replace(/\n/g, '<br>')}</div >
+                    </div>
+                    <h3 class="card-title-alt mt-6">❓ Câu hỏi (Bằng Tiếng Việt)</h3>` +
+                    data.questions.map(q => `
+                    <div class="question-item" data-correct-answer="${q.correct_option_pinyin.replace(/"/g, '&quot;')}" data-question-translation="${q.question_text_vietnamese.replace(/"/g, '&quot;')}" >
+                        <p class="question-text">${q.id}. ${q.question_text_vietnamese}</p>
+                        <div class="question-options">${q.options_pinyin.map(opt => `<button class="option-btn font-mono" onclick="checkMultipleChoiceAnswer(this)">${opt}</button>`).join('')}</div>
+                        <div class="question-feedback"></div>
+                    </div>`).join('');
+
+                setupAudioPlayer(data.audio_script_hanzi, document.getElementById('audioPlayerContainer'));
+
+                const toggleBtn = document.getElementById('toggleTranscriptBtn');
+                const transcriptContent = document.getElementById('transcriptContent');
+                toggleBtn.addEventListener('click', () => {
+                    const isHidden = transcriptContent.classList.toggle('hidden');
+                    toggleBtn.innerHTML = isHidden ? '📜 Hiện văn bản' : '📜 Ẩn văn bản';
+                });
+            },
+            conversationSimulator: async (scenario, el, headerText) => {
+                el.innerHTML = `
+                    <h2 class="section-header">🗣️ ${headerText}: ${scenario}</h2>
+                    <div class="conversation-container">
+                        <div class="message-area" id="messageArea"></div>
+                        <div class="chat-input-container">
+                            <input type="text" id="chatInput" class="chat-input" placeholder="Nhập câu trả lời bằng Pinyin...">
+                            <button id="chatSendButton" class="chat-send-btn">Gửi</button>
+                        </div>
+                    </div>`;
+
+                const chatInput = document.getElementById('chatInput');
+                const chatSendButton = document.getElementById('chatSendButton');
+
+                const handleSend = () => continueConversation();
+                chatSendButton.addEventListener('click', handleSend);
+                chatInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        handleSend();
+                    }
+                });
+
+                const systemPrompt = `You are a helpful AI assistant named 'Linh', designed for Vietnamese learners of Chinese. Your task is to role-play a scenario in Chinese. The current scenario is: '${scenario}'. Start the conversation naturally in Chinese. Keep your responses friendly, encouraging, and not too long. Your entire response must be a single JSON object with these keys: "hanzi" (your response in Chinese characters), "pinyin" (the pinyin for your response), and "vietnamese" (the Vietnamese translation of your response).`;
+                conversationHistory = [{ role: 'user', parts: [{ text: systemPrompt }] }];
+
+                await getNextAiResponse();
+            },
+            comparison: (data, el, headerText) => {
+                el.innerHTML = `
+                    <h2 class="section-header">⚖️ ${headerText}</h2>
+                    <div class="table-container">
+                        <table>
+                            <thead><tr><th>Pinyin</th><th>Giải thích</th><th>Ví dụ (Pinyin)</th><th>Ví dụ (Tiếng Việt)</th><th>Phát âm</th></tr></thead>
+                            <tbody>
+                            ${data.map(item => `
+                                <tr data-hanzi-example="${item.example_hanzi.replace(/"/g, '&quot;')}">
+                                    <td class="font-bold text-lg text-fuchsia-600 dark:text-fuchsia-400 font-mono">${item.pinyin}</td>
+                                    <td>${item.explanation}</td>
+                                    <td><em class="font-mono">"${item.example_pinyin}"</em></td>
+                                    <td class="text-slate-600 dark:text-slate-300">${item.example_vietnamese || ''}</td>
+                                    <td>
+                                       <button class="icon-btn" onclick="speakText(this.closest('[data-hanzi-example]').dataset.hanziExample)" title="Nghe câu này">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M11.536 14.01A8.473 8.473 0 0 0 14.026 8a8.473 8.473 0 0 0-2.49-6.01l-1.414 1.414A6.472 6.472 0 0 1 12.026 8c0 1.966-.893 3.738-2.29 4.949l1.414 1.414z"/></svg>
+                                       </button>
+                                    </td>
+                                </tr>`).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            },
+            situationalSentences: (data, el, headerText) => {
+                el.innerHTML = `<h2 class="section-header">📧 ${headerText}: ${data.situation}</h2>` +
+                    data.sentences.map(sentence => `
+                    <div class="info-card" data-hanzi="${sentence.hanzi.replace(/"/g, '&quot;')}">
+                         <div class="flex items-start justify-between">
+                            <div>
+                                <p class="font-mono font-semibold text-lg">${sentence.pinyin}</p>
+                                <p class="text-gray-600 dark:text-gray-400 italic mt-1">${sentence.vietnamese}</p>
+                            </div>
+                            <button class="audio-btn" style="width: 44px; height: 44px; min-width: 44px;" onclick="speakText(this.closest('[data-hanzi]').dataset.hanzi)" title="Nghe câu này">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M11.536 14.01A8.473 8.473 0 0 0 14.026 8a8.473 8.473 0 0 0-2.49-6.01l-1.414 1.414A6.472 6.472 0 0 1 12.026 8c0 1.966-.893 3.738-2.29 4.949l1.414 1.414z"/></svg>
+                            </button>
+                         </div>
+                    </div>
+                `).join('');
+            },
+            toneAnalysis: (data, el, headerText) => {
+                el.innerHTML = `
+                    <h2 class="section-header">🎭 ${headerText}</h2>
+                    <div class="info-card">
+                        <h3 class="card-title">Câu gốc (Pinyin)</h3>
+                        <p class="italic font-mono">"${data.original_pinyin}"</p>
+                    </div>
+                    <div class="info-card">
+                        <h3 class="card-title">Phân tích thanh điệu</h3>
+                        <p>${data.explanation}</p>
+                    </div>
+                     <div class="info-card">
+                        <h3 class="card-title">Bảng thanh điệu chi tiết</h3>
+                        <div class="table-container">
+                        <table>
+                            <thead><tr><th>Âm tiết</th><th>Thanh điệu</th><th>Ký hiệu</th><th>Mô tả</th></tr></thead>
+                            <tbody>
+                            ${data.tones.map(t => `
+                                <tr>
+                                    <td class="font-mono">${t.syllable}</td>
+                                    <td>Thanh ${t.tone_number}</td>
+                                    <td>${t.mark}</td>
+                                    <td>${t.description}</td>
+                                </tr>`).join('')}
+                            </tbody>
+                        </table>
+                        </div>
+                     </div>
+                `;
+            },
+            translationResults: (data, el, headerText) => {
+                el.innerHTML = `
+                    <h2 class="section-header">🔁 ${headerText}</h2>
+                     <div class="table-container">
+                    <table>
+                        <thead><tr><th>Chữ Hán</th><th>Pinyin</th><th>Mức độ phổ biến</th><th>Ghi chú</th><th>Phát âm</th></tr></thead>
+                        <tbody>
+                            ${data.map(item => `
+                                <tr data-hanzi-item="${item.hanzi.replace(/"/g, '&quot;')}">
+                                    <td class="font-semibold text-lg">${item.hanzi}</td>
+                                    <td class="font-mono">${item.pinyin}</td>
+                                    <td><span class="font-medium px-2 py-1 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-200">${item.popularity_status}</span></td>
+                                    <td>${item.usage_note}</td>
+                                    <td>
+                                        <button class="icon-btn" onclick="speakText(this.closest('[data-hanzi-item]').dataset.hanziItem)">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M11.536 14.01A8.473 8.473 0 0 0 14.026 8a8.473 8.473 0 0 0-2.49-6.01l-1.414 1.414A6.472 6.472 0 0 1 12.026 8c0 1.966-.893 3.738-2.29 4.949l1.414 1.414z"/></svg>
+                                        </button>
+                                    </td>
+                                </tr>`).join('')}
+                        </tbody>
+                    </table>
+                    </div>`;
+            },
+            speakingPractice: async (topic, el, headerText) => {
+                const { prompt, schema } = prompts.speakingPractice(topic);
+                const data = await callGemini(prompt, schema);
+                renderSpeakingPracticeUI(el, [data], topic, 'ai');
+            },
+            speakingPracticeManual: (input, el, headerText) => {
+                // 'input' is the array of sentences from the modal
+                const initialData = input.map(sentence => ({ vietnamese_sentence: sentence, hanzi_suggestion: '', pinyin_suggestion: '' }));
+                renderSpeakingPracticeUI(el, initialData, '', 'manual');
+            },
+            pinyinPractice: async (topic, el, headerText) => {
+                const { prompt, schema } = prompts.pinyinPractice(topic);
+                const data = await callGemini(prompt, schema);
+                renderPinyinPracticeUI(el, data, topic);
+            },
+        };
+
+        function highlightPinyinDifferences(target, typed) {
+            // Simple word-by-word comparison for Pinyin
+            const targetWords = target.toLowerCase().split(/\s+/).filter(w => w);
+            const typedWords = typed.toLowerCase().split(/\s+/).filter(w => w);
+            let highlightedTyped = [];
+            for (let i = 0; i < Math.max(targetWords.length, typedWords.length); i++) {
+                if (typedWords[i] === undefined) break;
+                if (targetWords[i] === typedWords[i]) {
+                    highlightedTyped.push(typedWords[i]);
+                } else {
+                    highlightedTyped.push(`<span class="bg-red-200 text-red-700 px-1 rounded">${typedWords[i] || ''}</span>`);
+                }
+            }
+            return highlightedTyped.join(' ');
+        }
+
+        function renderSpeakingPracticeUI(el, initialSentences, topic, mode) {
+            let sentences = initialSentences;
+            let currentIndex = 0;
+            let currentData = sentences[currentIndex];
+
+            el.innerHTML = `
+                <h2 class="section-header">🎙️ Luyện phản xạ nói ${mode === 'manual' ? '(Thủ công)' : '(AI)'}</h2>
+                <div id="speaking-practice-card" class="info-card text-center relative speaking-practice-card">
+                    <p class="text-2xl font-bold" id="vietnamese-sentence-display"></p>
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" id="speaking-practice-loader" style="display:none;">
+                        <div class="loading-spinner"></div>
+                    </div>
+                </div>
+                <div class="flex justify-center items-center gap-4 mt-4 practice-actions">
+                    <button id="new-sentence-btn" class="feature-btn">🔄 Câu khác</button>
+                    <button id="show-answer-btn" class="primary-btn">💡 Hiện đáp án</button>
+                    <button id="record-pronunciation-btn" class="pronunciation-record-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/><path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/></svg>
+                        <span>Ghi âm & Chấm điểm</span>
+                    </button>
+                </div>
+                <div id="answer-container" class="mt-6 hidden"></div>
+                <div id="pronunciation-score-container" class="mt-6 hidden"></div>
+            `;
+
+            const sentenceDisplay = document.getElementById('vietnamese-sentence-display');
+            const answerContainer = document.getElementById('answer-container');
+            const newSentenceBtn = document.getElementById('new-sentence-btn');
+            const showAnswerBtn = document.getElementById('show-answer-btn');
+            const recordBtn = document.getElementById('record-pronunciation-btn');
+            const scoreContainer = document.getElementById('pronunciation-score-container');
+            const loader = document.getElementById('speaking-practice-loader');
+
+            const fetchAndSetSuggestions = async (vietnameseSentence) => {
+                try {
+                    showAnswerBtn.disabled = true;
+                    showAnswerBtn.innerHTML = `<div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>`;
+                    const { prompt, schema } = prompts.speakingPractice(vietnameseSentence);
+                    const suggestionData = await callGemini(prompt, schema);
+                    currentData = suggestionData; // Update currentData with new suggestions
+
+                    answerContainer.innerHTML = `
+                        <div class="info-card">
+                           <h3 class="card-title">Gợi ý trả lời</h3>
+                           <p class="font-mono text-lg font-semibold">${currentData.pinyin_suggestion}</p>
+                           <button class="icon-btn mt-2" onclick="speakText('${currentData.hanzi_suggestion.replace(/'/g, "\\'")}')">Nghe đáp án</button>
+                        </div>
+                    `;
+                    answerContainer.classList.remove('hidden');
+                    showAnswerBtn.textContent = '🙈 Ẩn đáp án';
+                } catch (e) {
+                    answerContainer.innerHTML = `<p class="text-red-500">Không thể tải gợi ý.</p>`;
+                    showAnswerBtn.textContent = '💡 Hiện đáp án';
+                } finally {
+                    showAnswerBtn.disabled = false;
+                }
+            };
+
+            const displaySentence = (data) => {
+                currentData = data;
+                sentenceDisplay.textContent = data.vietnamese_sentence;
+                answerContainer.innerHTML = '';
+                answerContainer.classList.add('hidden');
+                scoreContainer.innerHTML = '';
+                scoreContainer.classList.add('hidden');
+                showAnswerBtn.textContent = '💡 Hiện đáp án';
+                showAnswerBtn.disabled = false;
+            };
+
+            const showNextSentence = async () => {
+                newSentenceBtn.disabled = true;
+                loader.style.display = 'block';
+                sentenceDisplay.style.opacity = '0.3';
+
+                if (mode === 'ai') {
+                    const { prompt, schema } = prompts.speakingPractice(topic);
+                    const data = await callGemini(prompt, schema);
+                    sentences = [data];
+                    currentIndex = 0;
+                    displaySentence(data);
+                } else {
+                    currentIndex = (currentIndex + 1) % sentences.length;
+                    displaySentence(sentences[currentIndex]);
+                }
+
+                loader.style.display = 'none';
+                sentenceDisplay.style.opacity = '1';
+                newSentenceBtn.disabled = false;
+            };
+
+            showAnswerBtn.addEventListener('click', () => {
+                if (answerContainer.classList.contains('hidden')) {
+                    if (currentData.pinyin_suggestion) { // If we already have the answer
+                        answerContainer.innerHTML = `
+                            <div class="info-card">
+                               <h3 class="card-title">Gợi ý trả lời</h3>
+                               <p class="font-mono text-lg font-semibold">${currentData.pinyin_suggestion}</p>
+                               <button class="icon-btn mt-2" onclick="speakText('${currentData.hanzi_suggestion.replace(/'/g, "\\'")}')">Nghe đáp án</button>
+                            </div>
+                         `;
+                        answerContainer.classList.remove('hidden');
+                        showAnswerBtn.textContent = '🙈 Ẩn đáp án';
+                    } else { // Fetch it if not
+                        fetchAndSetSuggestions(currentData.vietnamese_sentence);
+                    }
+                } else {
+                    answerContainer.classList.add('hidden');
+                    showAnswerBtn.textContent = '💡 Hiện đáp án';
+                }
+            });
+
+            recordBtn.addEventListener('click', () => {
+                if (isRecording) {
+                    if (recognition) recognition.stop();
+                } else {
+                    handlePronunciationRecording(currentData);
+                }
+            });
+
+            newSentenceBtn.addEventListener('click', showNextSentence);
+            displaySentence(currentData); // Initial display
+        }
+
+        function renderPinyinPracticeUI(el, initialData, topic) {
+            let currentData = initialData;
+
+            el.innerHTML = `
+                <h2 class="section-header">✍️ Luyện gõ Pinyin (AI)</h2>
+                <div class="info-card">
+                    <h3 class="card-title">Dịch câu sau và gõ Pinyin (có dấu hoặc không):</h3>
+                    <p id="vietnamese-writing-prompt" class="text-xl font-semibold text-center py-4">${currentData.vietnamese_sentence}</p>
+                </div>
+                <textarea id="pinyin-writing-input" class="textarea-input font-mono" placeholder="Ví dụ: wo3 ai4 ni3 hoặc wǒ ài nǐ..."></textarea>
+                <div id="writing-feedback-container" class="mt-4"></div>
+                <div class="flex justify-center gap-4 mt-4 practice-actions">
+                     <button id="check-writing-btn" class="primary-btn">✔️ Kiểm tra</button>
+                     <button id="hint-writing-btn" class="feature-btn">💡 Gợi ý</button>
+                     <button id="next-writing-btn" class="feature-btn">🔄 Câu khác</button>
+                </div>
+            `;
+
+            const promptDisplay = document.getElementById('vietnamese-writing-prompt');
+            const inputArea = document.getElementById('pinyin-writing-input');
+            const feedbackContainer = document.getElementById('writing-feedback-container');
+            const checkBtn = document.getElementById('check-writing-btn');
+            const hintBtn = document.getElementById('hint-writing-btn');
+            const nextBtn = document.getElementById('next-writing-btn');
+
+            const fetchNewSentence = async () => {
+                feedbackContainer.innerHTML = '';
+                inputArea.value = '';
+                promptDisplay.textContent = 'Đang tải câu mới...';
+                const { prompt, schema } = prompts.pinyinPractice(topic);
+                currentData = await callGemini(prompt, schema);
+                promptDisplay.textContent = currentData.vietnamese_sentence;
+                checkBtn.disabled = false;
+                hintBtn.disabled = false;
+            };
+
+            hintBtn.addEventListener('click', () => {
+                feedbackContainer.innerHTML = `
+                    <div class="info-card">
+                       <h3 class="card-title">Gợi ý đáp án</h3>
+                       <p class="font-mono text-lg font-semibold">${currentData.pinyin_suggestion}</p>
+                       <button class="icon-btn mt-2" onclick="speakText('${currentData.hanzi_suggestion.replace(/'/g, "\\'")}')">Nghe đáp án</button>
+                    </div>`;
+            });
+
+            checkBtn.addEventListener('click', async () => {
+                const userPinyin = inputArea.value.trim();
+                if (!userPinyin) {
+                    showMessage("Vui lòng nhập câu trả lời của bạn.", 'error');
+                    return;
+                }
+
+                checkBtn.disabled = true;
+                hintBtn.disabled = true;
+                feedbackContainer.innerHTML = '<p class="text-center font-semibold">Đang kiểm tra...</p>';
+
+                const { prompt, schema } = prompts.checkPinyin(currentData.vietnamese_sentence, userPinyin, currentData.pinyin_suggestion);
+                const result = await callGemini(prompt, schema);
+
+                let resultHTML;
+                if (result.is_correct) {
+                    resultHTML = `
+                        <div class="info-card border-green-500 bg-green-50 dark:bg-green-900/50 dark:border-green-700">
+                            <h3 class="card-title text-green-700 dark:text-green-300">🎉 Chính xác!</h3>
+                            <p><strong>Đáp án đúng:</strong> <span class="font-mono">${result.corrected_pinyin}</span></p>
+                            <div class="flex justify-center mt-4"><button onclick="document.getElementById('next-writing-btn').click()" class="feature-btn">Tiếp tục</button></div>
+                        </div>
+                    `;
+                } else {
+                    const highlightedText = highlightPinyinDifferences(result.corrected_pinyin, userPinyin);
+                    resultHTML = `
+                         <div class="info-card border-red-500 bg-red-50 dark:bg-red-900/50 dark:border-red-700">
+                            <h3 class="card-title text-red-700 dark:text-red-300">🤔 Cần xem lại!</h3>
+                            <p><strong>Câu của bạn:</strong> <span class="font-mono">${highlightedText}</span></p>
+                            <p class="mt-2"><strong>Đáp án đúng:</strong> <span class="font-semibold text-green-600 dark:text-green-400 font-mono">${result.corrected_pinyin}</span></p>
+                            <h4 class="card-title-alt mt-4">Ghi chú:</h4>
+                            <p>${result.feedback}</p>
+                            <div class="flex justify-center mt-4"><button onclick="document.getElementById('next-writing-btn').click()" class="feature-btn">Tiếp tục</button></div>
+                        </div>`;
+                }
+                feedbackContainer.innerHTML = resultHTML;
+            });
+
+            nextBtn.addEventListener('click', fetchNewSentence);
+        }
+
+        // --- PROMPTS (Chinese Version) ---
+        const prompts = {
+            quickLookup: (input) => ({
+                prompt: `Cho từ/câu tiếng Việt sau: "${input}", hãy cung cấp bản dịch tiếng Trung tương ứng. Trả về một đối tượng JSON duy nhất có các khóa: "hanzi" (chữ Hán), "pinyin" (pinyin có dấu), và "meaning" (nghĩa tiếng Việt, có thể giống với input nếu input là tiếng Việt). Nếu input là Pinyin, hãy tìm chữ Hán và nghĩa tiếng Việt tương ứng.`,
+                schema: { type: "OBJECT", properties: { hanzi: { type: "STRING" }, pinyin: { type: "STRING" }, meaning: { type: "STRING" } }, required: ["hanzi", "pinyin", "meaning"] }
+            }),
+            pronunciationScore: (targetHanzi, spokenText) => ({
+                prompt: `Đánh giá khả năng phát âm tiếng Trung. Văn bản nói được (có thể không chính xác) là: "${spokenText}". Câu đúng phải là: "${targetHanzi}". Hãy so sánh và cho điểm tương đồng từ 0-100. Cung cấp nhận xét ngắn gọn bằng tiếng Việt. Trả về JSON có khóa "score" (số) và "feedback" (chuỗi).`,
+                schema: { type: "OBJECT", properties: { score: { type: "NUMBER" }, feedback: { type: "STRING" } }, required: ["score", "feedback"] }
+            }),
+            convertToPinyin: (hanzi) => ({
+                prompt: `Chuyển đổi các ký tự tiếng Trung sau đây sang Pinyin có dấu: "${hanzi}". Trả về một đối tượng JSON có khóa duy nhất "pinyin".`,
+                schema: { type: "OBJECT", properties: { pinyin: { type: "STRING" } }, required: ["pinyin"] }
+            }),
+            examples: (input) => ({ prompt: `Tạo 15 câu ví dụ tiếng Trung cho từ hoặc chủ đề "${input}". Với mỗi câu, trả về dưới dạng đối tượng JSON có các khóa: "hanzi" (câu bằng chữ Hán), "pinyin" (pinyin có dấu), "vietnamese" (bản dịch tiếng Việt). Toàn bộ kết quả là một mảng JSON các đối tượng này.`, schema: { type: "ARRAY", items: { type: "OBJECT", properties: { hanzi: { type: "STRING" }, pinyin: { type: "STRING" }, vietnamese: { type: "STRING" } }, required: ["hanzi", "pinyin", "vietnamese"] } } }),
+            exercise: (input) => ({ prompt: `Tạo 10 câu bài tập điền vào chỗ trống cho từ/chủ đề tiếng Trung "${input}". Mỗi câu, cung cấp: câu tiếng Hán đầy đủ, câu pinyin với một từ bị thiếu thay bằng "____", pinyin của từ đúng, 4 lựa chọn pinyin ngẫu nhiên (bao gồm đáp án đúng), và bản dịch tiếng Việt. Trả về mảng JSON với các thuộc tính: "id", "hanzi_sentence", "pinyin_with_blank", "correct_word_pinyin", "options", "translation".`, schema: { type: "ARRAY", items: { type: "OBJECT", properties: { id: { type: "NUMBER" }, hanzi_sentence: { type: "STRING" }, pinyin_with_blank: { type: "STRING" }, correct_word_pinyin: { type: "STRING" }, options: { type: "ARRAY", items: { type: "STRING" } }, translation: { type: "STRING" } }, required: ["id", "hanzi_sentence", "pinyin_with_blank", "correct_word_pinyin", "options", "translation"] } } }),
+            listeningFillInTheBlank: (input) => ({ prompt: `Tạo 10 câu bài tập nghe và điền từ tiếng Trung cho chủ đề "${input}". Mỗi câu có: câu tiếng Hán đầy đủ để phát âm, câu pinyin với một từ bị thiếu thay bằng "____", pinyin của từ đúng, 4 lựa chọn pinyin (bao gồm đáp án đúng), và bản dịch tiếng Việt. Trả về mảng JSON với thuộc tính: "id", "hanzi_sentence", "pinyin_with_blank", "correct_word_pinyin", "options", "translation".`, schema: { type: "ARRAY", items: { type: "OBJECT", properties: { id: { type: "NUMBER" }, hanzi_sentence: { type: "STRING" }, pinyin_with_blank: { type: "STRING" }, correct_word_pinyin: { type: "STRING" }, options: { type: "ARRAY", items: { type: "STRING" } }, translation: { type: "STRING" } }, required: ["id", "hanzi_sentence", "pinyin_with_blank", "correct_word_pinyin", "options", "translation"] } } }),
+            explanation: (input) => ({
+                prompt: `Giải thích từ vựng hoặc ngữ pháp tiếng Trung cho "${input}". BẮT BUỘC phải trả về JSON với TẤT CẢ các khóa sau (không được thiếu bất kỳ khóa nào):
+
+1. 'explanation': Giải thích chung bằng tiếng Việt (tối đa 2 câu), nếu người dùng nhập tiếng việt thì dịch sang tiếng trung và bao gồm cả piyin
+2. 'components': Mảng các đối tượng cho mỗi ký tự, mỗi đối tượng có 'pinyin', 'hanzi', và 'meaning' (nghĩa gốc)
+3. 'component_examples': Một đối tượng chứa danh sách ví dụ cho từng ký tự trong components. Mỗi khóa là chữ Hán của ký tự đó, và giá trị là một mảng 5 đối tượng ví dụ. Mỗi ví dụ có: 'hanzi' (từ vựng ví dụ), 'pinyin' (pinyin có dấu), 'hanviet' (âm Hán Việt), 'meaning' (nghĩa tiếng Việt).
+4. 'usage_notes': Lưu ý cách dùng bằng tiếng Việt (tối đa 2 câu)
+5. 'memory_tips': Mảng các mẹo để dễ nhớ bằng tiếng Việt (mỗi mẹo là một chuỗi ngắn gọn)
+6. 'synonyms': Mảng các từ đồng nghĩa (ít nhất 2-3 từ), mỗi đối tượng có 'pinyin', 'hanzi', 'meaning' (nghĩa tiếng Việt), và 'rating' (số từ 1 đến 5)
+7. 'antonyms': Mảng các từ trái nghĩa (ít nhất 1-2 từ nếu có, nếu không có từ trái nghĩa phù hợp thì trả về mảng rỗng []), mỗi đối tượng có 'pinyin', 'hanzi', 'meaning' (nghĩa tiếng Việt), và 'rating' (số từ 1 đến 5)
+8. 'collocations': Mảng các cụm từ phổ biến thường đi chung với từ này (ít nhất 3-5 cụm từ), sắp xếp theo độ phổ biến từ cao xuống thấp, mỗi đối tượng có 'pinyin', 'hanzi', 'meaning' (nghĩa tiếng Việt), và 'rating' (số từ 1 đến 5)
+
+QUAN TRỌNG: Phải luôn trả về TẤT CẢ các khóa trên, kể cả khi một số mảng có thể rỗng. Giữ các chuỗi ngắn gọn và đảm bảo JSON hợp lệ.`,
+                schema: { type: "OBJECT", properties: { explanation: { "type": "STRING" }, components: { type: "ARRAY", items: { type: "OBJECT", properties: { pinyin: { "type": "STRING" }, hanzi: { "type": "STRING" }, meaning: { "type": "STRING" } }, required: ["pinyin", "hanzi", "meaning"] } }, component_examples: { type: "OBJECT" }, usage_notes: { "type": "STRING" }, memory_tips: { type: "ARRAY", items: { type: "STRING" } }, synonyms: { type: "ARRAY", items: { type: "OBJECT", properties: { pinyin: { "type": "STRING" }, hanzi: { "type": "STRING" }, meaning: { "type": "STRING" }, rating: { "type": "NUMBER" } }, required: ["pinyin", "hanzi", "meaning", "rating"] } }, antonyms: { type: "ARRAY", items: { type: "OBJECT", properties: { pinyin: { "type": "STRING" }, hanzi: { "type": "STRING" }, meaning: { "type": "STRING" }, rating: { "type": "NUMBER" } }, required: ["pinyin", "hanzi", "meaning", "rating"] } }, collocations: { type: "ARRAY", items: { type: "OBJECT", properties: { pinyin: { "type": "STRING" }, hanzi: { "type": "STRING" }, meaning: { "type": "STRING" }, rating: { "type": "NUMBER" } }, required: ["pinyin", "hanzi", "meaning", "rating"] } } }, required: ["explanation", "components", "component_examples", "usage_notes", "synonyms", "antonyms", "collocations", "memory_tips"] }
+            }),
+            correction: (input) => ({ prompt: `Sửa lỗi câu Pinyin sau: "${input}". Hãy đoán chữ Hán tương ứng, kiểm tra ngữ pháp, sau đó cung cấp pinyin gốc, pinyin đã sửa, danh sách các thay đổi (giải thích bằng TIẾNG VIỆT), và bản dịch tiếng Việt của câu đã sửa. Trả về JSON với khóa: "original_pinyin", "corrected_pinyin", "changes" (mảng chuỗi), "translation".`, schema: { type: "OBJECT", properties: { original_pinyin: { type: "STRING" }, corrected_pinyin: { type: "STRING" }, changes: { type: "ARRAY", items: { type: "STRING" } }, translation: { type: "STRING" } }, required: ["original_pinyin", "corrected_pinyin", "changes", "translation"] } }),
+            dialogue: (input) => ({ prompt: `Tạo đoạn hội thoại tiếng Trung về chủ đề "${input}" giữa hai nhân vật (ví dụ: A và B). Cung cấp tên nhân vật, lời thoại chữ Hán, pinyin và bản dịch tiếng Việt cho mỗi dòng. Trả về JSON có khóa: "characters" (mảng 2 tên), "dialogue" (mảng các đối tượng có khóa "character", "hanzi", "pinyin", "vietnamese").`, schema: { type: "OBJECT", properties: { characters: { type: "ARRAY", items: { type: "STRING" } }, dialogue: { type: "ARRAY", items: { type: "OBJECT", properties: { character: { type: "STRING" }, hanzi: { type: "STRING" }, pinyin: { type: "STRING" }, vietnamese: { type: "STRING" } }, required: ["character", "hanzi", "pinyin", "vietnamese"] } } }, required: ["characters", "dialogue"] } }),
+            summary: (input) => ({ prompt: `Tóm tắt văn bản Pinyin sau đây sang tiếng Việt ngắn gọn: "${input}". Trả về JSON có khóa "summary".`, schema: { type: "OBJECT", properties: { summary: { type: "STRING" } }, required: ["summary"] } }),
+            paragraphs: (input) => ({
+                prompt: `Sử dụng các từ vựng tiếng Việt sau: "${input}", hãy: 1. Dịch chúng sang tiếng Trung (Pinyin và Hán tự). 2. Viết một đoạn văn với đầy đủ các từ khóa cung cấp ( ít nhất 300 từ trở lên) bằng chữ Hán sử dụng tất cả các từ đó. 3. Cung cấp Pinyin cho đoạn văn, trong đó bôi đậm (dùng thẻ <b>) các từ khóa đã cho. 4. Dịch toàn bộ đoạn văn sang tiếng Việt. 5. Tạo một phiên bản dịch "hỗn hợp": lấy bản dịch tiếng Việt ở bước 4, nhưng thay thế các từ đã dịch bằng TỪ VỰNG GỐC (Pinyin) được tô đậm. 6. Liệt kê lại từ vựng đã dùng (pinyin và nghĩa). Trả về JSON có khóa: "pinyin_paragraph", "hanzi_paragraph", "vietnamese_translation", "mixed_vietnamese_translation", "vocabulary_list".`,
+                schema: { type: "OBJECT", properties: { pinyin_paragraph: { type: "STRING" }, hanzi_paragraph: { type: "STRING" }, vietnamese_translation: { type: "STRING" }, mixed_vietnamese_translation: { type: "STRING" }, vocabulary_list: { type: "ARRAY", items: { type: "OBJECT", properties: { pinyin: { type: "STRING" }, meaning: { type: "STRING" } }, required: ["pinyin", "meaning"] } } }, required: ["pinyin_paragraph", "hanzi_paragraph", "vietnamese_translation", "mixed_vietnamese_translation", "vocabulary_list"] }
+            }),
+            popularity: (input) => ({ prompt: `Phân tích độ phổ biến của từ Pinyin "${input}". Cung cấp trạng thái ("Rất phổ biến", "Phổ biến", "Ít phổ biến"), bản dịch, ngữ cảnh. Nếu không phổ biến, đề xuất 1-2 phương án thay thế. Trả về JSON có khóa: "original_item" (đối tượng có 'pinyin', 'popularity_status', 'translation', 'context_explanation'), và "suggested_alternatives" (mảng các đối tượng tương tự).`, schema: { type: "OBJECT", properties: { original_item: { type: "OBJECT", properties: { pinyin: { type: "STRING" }, popularity_status: { type: "STRING" }, translation: { type: "STRING" }, context_explanation: { type: "STRING" } } }, suggested_alternatives: { type: "ARRAY", items: { type: "OBJECT", properties: { pinyin: { type: "STRING" }, popularity_status: { type: "STRING" }, translation: { type: "STRING" }, context_explanation: { type: "STRING" } } } } }, required: ["original_item"] } }),
+            reading: (input) => ({ prompt: `Tạo bài đọc hiểu tiếng Trung (khoảng 100 chữ Hán) về chủ đề "${input}". Tạo 3 câu hỏi trắc nghiệm bằng Tiếng Việt. Mỗi câu hỏi có 3 lựa chọn bằng Pinyin. Trả về JSON: "reading_passage_hanzi", "reading_passage_pinyin", "questions" (mảng, mỗi đối tượng chứa: "id", "question_text_vietnamese", "options_pinyin" (mảng 3 chuỗi), "correct_option_pinyin").`, schema: { type: "OBJECT", properties: { reading_passage_hanzi: { type: "STRING" }, reading_passage_pinyin: { type: "STRING" }, questions: { type: "ARRAY", items: { type: "OBJECT", properties: { id: { type: "NUMBER" }, question_text_vietnamese: { type: "STRING" }, options_pinyin: { type: "ARRAY", items: { type: "STRING" } }, correct_option_pinyin: { type: "STRING" } }, required: ["id", "question_text_vietnamese", "options_pinyin", "correct_option_pinyin"] } } }, required: ["reading_passage_hanzi", "reading_passage_pinyin", "questions"] } }),
+            listening: (input) => ({ prompt: `Tạo kịch bản nghe tiếng Trung (khoảng 80 chữ Hán) về chủ đề "${input}". Dịch kịch bản sang tiếng Việt. Tạo 3 câu hỏi trắc nghiệm bằng Tiếng Việt dựa trên nội dung. Mỗi câu có 3 lựa chọn bằng Pinyin. Trả về JSON: "audio_script_hanzi", "audio_script_pinyin", "audio_script_translation", "questions" (mảng, mỗi đối tượng chứa: "id", "question_text_vietnamese", "options_pinyin", "correct_option_pinyin").`, schema: { type: "OBJECT", properties: { audio_script_hanzi: { type: "STRING" }, audio_script_pinyin: { type: "STRING" }, audio_script_translation: { type: "STRING" }, questions: { type: "ARRAY", items: { type: "OBJECT", properties: { id: { type: "NUMBER" }, question_text_vietnamese: { type: "STRING" }, options_pinyin: { type: "ARRAY", items: { type: "STRING" } }, correct_option_pinyin: { type: "STRING" } }, required: ["id", "question_text_vietnamese", "options_pinyin", "correct_option_pinyin"] } } }, required: ["audio_script_hanzi", "audio_script_pinyin", "audio_script_translation", "questions"] } }),
+            speakingPractice: (input) => ({ prompt: `Dựa vào chủ đề hoặc câu tiếng Việt "${input}", hãy tạo một câu tiếng Việt tương đương hoặc liên quan để người dùng dịch và nói bằng tiếng Trung. Sau đó, cung cấp bản dịch tiếng Trung gợi ý cho câu đó. Trả về một đối tượng JSON với các khóa: "vietnamese_sentence", "hanzi_suggestion", và "pinyin_suggestion".`, schema: { type: "OBJECT", properties: { vietnamese_sentence: { type: "STRING" }, hanzi_suggestion: { type: "STRING" }, pinyin_suggestion: { type: "STRING" } }, required: ["vietnamese_sentence", "hanzi_suggestion", "pinyin_suggestion"] } }),
+            pinyinPractice: (input) => ({ prompt: `Dựa vào chủ đề "${input}", hãy tạo một câu tiếng Việt đơn giản và cung cấp bản dịch tiếng Trung của nó. Trả về một đối tượng JSON với các khóa: "vietnamese_sentence", "hanzi_suggestion", "pinyin_suggestion".`, schema: { type: "OBJECT", properties: { vietnamese_sentence: { type: "STRING" }, hanzi_suggestion: { type: "STRING" }, pinyin_suggestion: { type: "STRING" } }, required: ["vietnamese_sentence", "hanzi_suggestion", "pinyin_suggestion"] } }),
+            checkPinyin: (vietnameseSentence, userPinyin, correctPinyin) => ({ prompt: `Câu gốc tiếng Việt là: "${vietnameseSentence}". Người dùng đã gõ pinyin là: "${userPinyin}". Pinyin đúng gợi ý là: "${correctPinyin}". Hãy kiểm tra xem pinyin người dùng gõ có đúng không (cho phép cả pinyin có dấu và không dấu dạng số). Nếu sai, hãy đưa ra phản hồi ngắn gọn bằng tiếng Việt. Trả về JSON có khóa: "is_correct" (boolean), "corrected_pinyin" (chuỗi pinyin đúng), "feedback" (chuỗi nhận xét).`, schema: { type: "OBJECT", properties: { is_correct: { type: "BOOLEAN" }, corrected_pinyin: { type: "STRING" }, feedback: { type: "STRING" } }, required: ["is_correct", "corrected_pinyin", "feedback"] } }),
+            comparison: (input) => ({ prompt: `So sánh các từ Pinyin sau: "${input}". Đối với mỗi từ, giải thích sắc thái ý nghĩa khác nhau và ngữ cảnh sử dụng khác nhau của từng từ, cách dùng bằng tiếng Việt, kèm theo một câu ví dụ (cả Hán tự, pinyin và bản dịch tiếng Việt). Trả về mảng JSON, mỗi đối tượng có khóa: "pinyin", "explanation", "example_hanzi", "example_pinyin", "example_vietnamese".`, schema: { type: "ARRAY", items: { type: "OBJECT", properties: { pinyin: { type: "STRING" }, explanation: { type: "STRING" }, example_hanzi: { type: "STRING" }, example_pinyin: { type: "STRING" }, example_vietnamese: { type: "STRING" } }, required: ["pinyin", "explanation", "example_hanzi", "example_pinyin", "example_vietnamese"] } } }),
+            toneAnalysis: (input) => ({ prompt: `Phân tích thanh điệu của câu Pinyin sau: "${input}". Cung cấp giải thích chung bằng tiếng Việt. Sau đó, liệt kê chi tiết từng âm tiết với số thanh điệu, ký hiệu và mô tả. Trả về JSON có khóa: "original_pinyin", "explanation", "tones" (mảng các đối tượng có "syllable", "tone_number", "mark", "description").`, schema: { type: "OBJECT", properties: { original_pinyin: { type: "STRING" }, explanation: { type: "STRING" }, tones: { type: "ARRAY", items: { type: "OBJECT", properties: { syllable: { type: "STRING" }, tone_number: { type: "NUMBER" }, mark: { type: "STRING" }, description: { type: "STRING" } } } } }, required: ["original_pinyin", "explanation", "tones"] } }),
+            situationalSentences: (input) => ({ prompt: `Tạo 3 câu tiếng Trung hữu ích cho tình huống: "${input}". Với mỗi câu, cung cấp chữ Hán, pinyin và bản dịch tiếng Việt. Trả về JSON có khóa 'situation' và 'sentences' (mảng đối tượng có 'hanzi', 'pinyin', 'vietnamese').`, schema: { type: "OBJECT", properties: { situation: { type: "STRING" }, sentences: { type: "ARRAY", items: { type: "OBJECT", properties: { hanzi: { type: "STRING" }, pinyin: { type: "STRING" }, vietnamese: { type: "STRING" } }, required: ["hanzi", "pinyin", "vietnamese"] } } }, required: ["situation", "sentences"] } }),
+            translateViToZh: (input) => ({
+                prompt: `Dịch câu tiếng Việt sau đây sang tiếng Trung: "${input}". Cung cấp 3-5 phương án dịch khác nhau. Với mỗi phương án, hãy cung cấp: 1. Chữ Hán (hanzi). 2. Pinyin có dấu. 3. Trạng thái phổ biến BẰNG TIẾNG VIỆT (ví dụ: "Rất phổ biến", "Tự nhiên", "Hơi trang trọng", "Ít dùng"). 4. Một ghi chú ngắn về ngữ cảnh sử dụng BẰNG TIẾNG VIỆT. Trả về một mảng JSON các đối tượng có khóa: "hanzi", "pinyin", "popularity_status", "usage_note".`,
+                schema: { type: "ARRAY", items: { type: "OBJECT", properties: { hanzi: { type: "STRING" }, pinyin: { type: "STRING" }, popularity_status: { type: "STRING" }, usage_note: { type: "STRING" } }, required: ["hanzi", "pinyin", "popularity_status", "usage_note"] } }
+            }),
+            conversationTurn: (conversationContext, latestMessage) => ({ prompt: `Đây là một cuộc hội thoại giữa AI 'Linh' và người học tiếng Trung. Bối cảnh: ${conversationContext}. Tin nhắn gần nhất của người dùng (bằng pinyin): ${latestMessage}. Hãy đóng vai Linh và phản hồi một cách tự nhiên bằng tiếng Trung. Trả về JSON có khóa "hanzi", "pinyin", và "vietnamese".`, schema: { type: "OBJECT", properties: { hanzi: { type: "STRING" }, pinyin: { type: "STRING" }, vietnamese: { type: "STRING" } }, required: ["hanzi", "pinyin", "vietnamese"] } }),
+            conversationCorrection: (pinyinSentence) => ({ prompt: `Phân tích câu pinyin sau: "${pinyinSentence}". Sửa lại nếu cần và giải thích lỗi bằng tiếng Việt. Cung cấp pinyin đã sửa, ghi chú và bản dịch. Nếu đúng, xác nhận là đúng. Trả về JSON với khóa "originalPinyin", "correctedPinyin", "isCorrect", "correctionNotes", "vietnameseTranslation".`, schema: { type: "OBJECT", properties: { originalPinyin: { type: "STRING" }, correctedPinyin: { type: "STRING" }, isCorrect: { type: "BOOLEAN" }, correctionNotes: { type: "STRING" }, vietnameseTranslation: { type: "STRING" } }, required: ["originalPinyin", "correctedPinyin", "isCorrect", "correctionNotes", "vietnameseTranslation"] } }),
+        };
+
+        // --- Function Triggers ---
+        function generateExamples() { handleFeature('example', 'Tạo ví dụ', prompts.examples, renderers.examples); }
+        function generateExercise() { handleFeature('exercise', 'Tạo Bài Tập Viết', prompts.exercise, renderers.exercise); }
+        function generateListeningFillInTheBlank() { handleFeature('listeningFillInTheBlank', 'Bài tập Nghe & Điền từ', prompts.listeningFillInTheBlank, renderers.listeningFillInTheBlank); }
+        function generateExplanation() { handleFeature('explanation', 'Giải thích Từ Vựng', prompts.explanation, renderers.explanation); }
+        function correctPinyin() { handleFeature('correction', 'Sửa Pinyin', prompts.correction, renderers.correction); }
+        function generateDialogue() { handleFeature('dialogue', 'Tạo Đoạn Hội Thoại', prompts.dialogue, renderers.dialogue); }
+        function summarizeText() { handleFeature('summary', 'Tóm Tắt Văn Bản', prompts.summary, renderers.summary); }
+        function generateParagraphs() { handleFeature('paragraph', 'Viết Đoạn Văn', prompts.paragraphs, renderers.paragraphs, (input) => input.includes(',') || input.includes(' ')); }
+        function checkPopularity() { handleFeature('popularity', 'Kiểm Tra Mức Độ Phổ Biến', prompts.popularity, renderers.popularity); }
+        function translateSentence() { handleFeature('translation', 'Dịch câu Việt - Trung', prompts.translateViToZh, renderers.translationResults); }
+        function generateReadingAndQuestions() { handleFeature('reading', 'Bài Đọc & Câu Hỏi', prompts.reading, renderers.reading); }
+        function generateListeningAndQuestions() { handleFeature('listening', 'Bài Nghe & Câu Hỏi', prompts.listening, renderers.listening); }
+        function startSpeakingPractice() { handleFeature('speakingPractice', 'Luyện phản xạ nói', null, renderers.speakingPractice); }
+        function startPinyinPractice() { handleFeature('pinyinPractice', 'Luyện gõ Pinyin', null, renderers.pinyinPractice); }
+        function compareVocabulary() { handleFeature('comparison', 'So Sánh Từ Vựng', prompts.comparison, renderers.comparison, (input) => input.split(',').length > 1); }
+        function analyzeTones() { handleFeature('toneAnalysis', 'Phân Tích Thanh Điệu', prompts.toneAnalysis, renderers.toneAnalysis); }
+        function startConversationSimulator() { handleFeature('conversationSimulator', 'Mô phỏng Hội thoại', null, renderers.conversationSimulator); }
+        function generateSituationalSentences() { handleFeature('situationalSentences', 'Tạo câu theo Tình huống', prompts.situationalSentences, renderers.situationalSentences); }
+
+        function startSpeakingPracticeManual() {
+            const modal = document.getElementById('manualSpeakingModal');
+            modal.style.display = 'flex';
+            document.getElementById('startManualPracticeBtn').onclick = () => {
+                const sentencesText = document.getElementById('manualSentencesInput').value.trim();
+                const sentences = sentencesText.split('\n').map(s => s.trim()).filter(s => s.length > 0);
+                if (sentences.length === 0) {
+                    showMessage('Vui lòng nhập ít nhất một câu để luyện tập.', 'error');
+                    return;
+                }
+                modal.style.display = 'none';
+                handleFeature('speakingPracticeManual', 'Luyện phản xạ thủ công', null,
+                    (input, content, headerText) => renderers.speakingPracticeManual(sentences, content, headerText),
+                    (input) => input.length > 0
+                );
+            };
+            document.getElementById('closeManualSpeakingModal').onclick = () => { modal.style.display = 'none'; };
+            modal.onclick = (event) => { if (event.target == modal) modal.style.display = 'none'; };
+        }
+
+        // --- Interactive Answer Checking ---
+        function checkFillInBlankAnswer(button, correctWord) {
+            const item = button.closest('.exercise-item');
+            const feedback = item.querySelector('.exercise-feedback');
+            const options = item.querySelectorAll('.option-btn');
+            const hanziSentence = item.dataset.hanzi;
+
+            options.forEach(btn => btn.disabled = true);
+
+            const speakButtonHTML = hanziSentence
+                ? `<button class="icon-btn" onclick="speakText('${hanziSentence.replace(/'/g, "\\'")}')" title="Nghe lại"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M11.536 14.01A8.473 8.473 0 0 0 14.026 8a8.473 8.473 0 0 0-2.49-6.01l-1.414 1.414A6.472 6.472 0 0 1 12.026 8c0 1.966-.893 3.738-2.29 4.949l1.414 1.414z"/></svg></button>`
+                : '';
+
+            if (button.dataset.value === correctWord) {
+                button.classList.add('correct');
+                feedback.innerHTML = `Chính xác! 🎉 ${speakButtonHTML}`;
+            } else {
+                button.classList.add('incorrect');
+                feedback.innerHTML = `Sai rồi. Đáp án đúng là "<b class="font-mono">${correctWord}</b>". ${speakButtonHTML}`;
+                const correctButton = item.querySelector(`button[data-value="${correctWord.replace(/"/g, '&quot;')}"]`);
+                if (correctButton) correctButton.classList.add('correct');
+            }
+        }
+
+        function checkMultipleChoiceAnswer(button) {
+            const item = button.closest('.question-item');
+            const feedbackEl = item.querySelector('.question-feedback');
+            const correctAnswer = item.dataset.correctAnswer;
+            const questionTranslation = item.dataset.questionTranslation;
+
+            item.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
+
+            if (button.textContent === correctAnswer) {
+                button.classList.add('correct');
+                feedbackEl.innerHTML = `Chính xác! 🎉 <br><span class="question-translation">(Câu hỏi: ${questionTranslation})</span>`;
+            } else {
+                button.classList.add('incorrect');
+                const correctBtn = Array.from(item.querySelectorAll('.option-btn')).find(b => b.textContent === correctAnswer);
+                if (correctBtn) correctBtn.classList.add('correct');
+                feedbackEl.innerHTML = `Sai rồi. Đáp án đúng là: "<b class="font-mono">${correctAnswer}</b>" <br><span class="question-translation">(Câu hỏi: ${questionTranslation})</span>`;
+            }
+        }
+
+        // --- Audio Player & Speech Recognition Logic ---
+        function createChineseUtterance(textInHanzi, { showError = true } = {}) {
+            const utterance = new SpeechSynthesisUtterance(textInHanzi);
+            const voices = speechSynthesis.getVoices().filter(voice => voice.lang.startsWith('zh'));
+            if (voices.length === 0) {
+                if (showError) {
+                    showMessage('Không tìm thấy giọng đọc Tiếng Trung trên trình duyệt này.', 'error');
+                }
+                return null;
+            }
+            utterance.voice = voices.find(v => v.name.includes('Google') && v.lang === 'zh-CN') || voices.find(v => v.lang === 'zh-CN') || voices[0];
+            utterance.lang = 'zh-CN';
+            utterance.rate = 0.9;
+            return utterance;
+        }
+
+        function speakText(textInHanzi) {
+            if (!('speechSynthesis' in window)) {
+                showMessage('Trình duyệt không hỗ trợ phát âm thanh.', 'error');
+                return;
+            }
+            stopLoopPlayback();
+            if (speechSynthesis.speaking && !isSpeakingFullDialogue) {
+                speechSynthesis.cancel();
+            }
+            const utterance = createChineseUtterance(textInHanzi);
+            if (!utterance) return;
+            utterance.onerror = (event) => console.error("Lỗi phát âm thanh:", event);
+            speechSynthesis.speak(utterance);
+        }
+
+        function playQuestionAudio(button, textInHanzi) {
+            if (!('speechSynthesis' in window)) return;
+            if (speechSynthesis.speaking) speechSynthesis.cancel();
+            const utterance = createChineseUtterance(textInHanzi);
+            if (!utterance) return;
+
+            const originalIconSVG = button.innerHTML;
+            button.innerHTML = `<div class="spinning-loader"></div>`;
+            button.disabled = true;
+            utterance.onend = () => { button.innerHTML = originalIconSVG; button.disabled = false; };
+            utterance.onerror = (e) => { button.innerHTML = originalIconSVG; button.disabled = false; console.error("Lỗi phát âm:", e); };
+            speechSynthesis.speak(utterance);
+        }
+
+        function toggleLoopPlayback(button, textInHanzi) {
+            if (!textInHanzi) return;
+            if (!('speechSynthesis' in window)) {
+                showMessage('Trình duyệt không hỗ trợ phát âm thanh.', 'error');
+                return;
+            }
+            if (loopPlaybackState.active && loopPlaybackState.button === button) {
+                stopLoopPlayback();
+                return;
+            }
+            startLoopPlayback(button, textInHanzi);
+        }
+
+        function startLoopPlayback(button, textInHanzi) {
+            stopLoopPlayback();
+            loopPlaybackState.active = true;
+            loopPlaybackState.text = textInHanzi;
+            loopPlaybackState.button = button;
+            if (!button.dataset.loopDefault) {
+                button.dataset.loopDefault = button.innerHTML;
+            }
+            button.dataset.loopState = 'playing';
+            button.innerHTML = button.dataset.loopStop || '⏹ Dừng lặp';
+            playLoopUtterance();
+        }
+
+        function playLoopUtterance() {
+            if (!loopPlaybackState.active) return;
+            const utterance = createChineseUtterance(loopPlaybackState.text, { showError: !loopPlaybackState.button });
+            if (!utterance) {
+                stopLoopPlayback();
+                return;
+            }
+            utterance.onend = () => {
+                if (loopPlaybackState.active) {
+                    setTimeout(playLoopUtterance, 250);
+                }
+            };
+            utterance.onerror = (err) => {
+                console.error('Loop playback error:', err);
+                stopLoopPlayback();
+            };
+            speechSynthesis.speak(utterance);
+        }
+
+        function stopLoopPlayback() {
+            if (loopPlaybackState.active && 'speechSynthesis' in window) {
+                speechSynthesis.cancel();
+            }
+            if (loopPlaybackState.button) {
+                const btn = loopPlaybackState.button;
+                const defaultHtml = btn.dataset.loopDefault || '🔁 Nghe liên tục';
+                btn.innerHTML = defaultHtml;
+                btn.dataset.loopState = 'stopped';
+            }
+            loopPlaybackState.active = false;
+            loopPlaybackState.text = '';
+            loopPlaybackState.button = null;
+        }
+
+        function setupAudioPlayer(scriptInHanzi, container) {
+            container.innerHTML = `<div class="audio-player"><div class="audio-controls"><button id="audioPlayBtn" class="audio-btn" title="Phát"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M10.804 8 5 4.633v6.734L10.804 8zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm15 0a7 7 0 1 0-14 0 7 7 0 0 0 14 0z"/></svg></button><button id="audioPauseBtn" class="audio-btn" title="Tạm dừng" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5zm4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm15 0a7 7 0 1 0-14 0 7 7 0 0 0 14 0z"/></svg></button><button id="audioStopBtn" class="audio-btn" title="Dừng"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm5 0a.5.5 0 0 1 0 1H6.5a.5.5 0 0 1 0-1H10.5zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm15 0a7 7 0 1 0-14 0 7 7 0 0 0 14 0z"/></svg></button></div><div id="audioStatus" class="audio-status">Sẵn sàng</div></div>`;
+            const playBtn = document.getElementById('audioPlayBtn'), pauseBtn = document.getElementById('audioPauseBtn'), stopBtn = document.getElementById('audioStopBtn'), statusDiv = document.getElementById('audioStatus');
+            if (!('speechSynthesis' in window)) { statusDiv.textContent = 'Trình duyệt không hỗ trợ'; playBtn.disabled = true; return; }
+
+            let utterance = new SpeechSynthesisUtterance(scriptInHanzi);
+            const setVoice = () => {
+                const voices = speechSynthesis.getVoices().filter(voice => voice.lang.startsWith('zh'));
+                if (voices.length > 0) { utterance.voice = voices.find(v => v.name.includes('Google') && v.lang === 'zh-CN') || voices.find(v => v.lang === 'zh-CN') || voices[0]; utterance.lang = 'zh-CN'; }
+            };
+            setVoice();
+            if (speechSynthesis.onvoiceschanged !== undefined) speechSynthesis.onvoiceschanged = setVoice;
+
+            utterance.onstart = () => { statusDiv.textContent = 'Đang phát...'; playBtn.style.display = 'none'; pauseBtn.style.display = 'flex'; };
+            utterance.onpause = () => { statusDiv.textContent = 'Đã tạm dừng'; playBtn.style.display = 'flex'; pauseBtn.style.display = 'none'; };
+            utterance.onresume = () => { statusDiv.textContent = 'Đang phát...'; playBtn.style.display = 'none'; pauseBtn.style.display = 'flex'; };
+            utterance.onend = () => { statusDiv.textContent = 'Đã kết thúc'; playBtn.style.display = 'flex'; pauseBtn.style.display = 'none'; };
+            utterance.onerror = (e) => { console.error(e); statusDiv.textContent = 'Lỗi phát âm'; playBtn.style.display = 'flex'; pauseBtn.style.display = 'none'; };
+
+            playBtn.addEventListener('click', () => { if (speechSynthesis.paused) { speechSynthesis.resume(); } else { speechSynthesis.cancel(); setTimeout(() => speechSynthesis.speak(utterance), 100); } });
+            pauseBtn.addEventListener('click', () => { if (speechSynthesis.speaking) speechSynthesis.pause(); });
+            stopBtn.addEventListener('click', () => { if (speechSynthesis.speaking || speechSynthesis.paused) speechSynthesis.cancel(); });
+        }
+
+        async function handlePronunciationRecording(sentenceData) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                showMessage('Trình duyệt của bạn không hỗ trợ nhận dạng giọng nói.', 'error');
+                return;
+            }
+
+            const recordBtn = document.getElementById('record-pronunciation-btn');
+            const scoreContainer = document.getElementById('pronunciation-score-container');
+            if (isRecording) { if (recognition) recognition.stop(); return; }
+
+            let targetData = sentenceData;
+
+            // Fetch suggestion if not already present
+            if (!targetData.hanzi_suggestion) {
+                scoreContainer.innerHTML = '<p class="text-center font-semibold">Đang lấy câu gợi ý...</p>';
+                scoreContainer.classList.remove('hidden');
+                try {
+                    const { prompt, schema } = prompts.speakingPractice(targetData.vietnamese_sentence);
+                    targetData = await callGemini(prompt, schema);
+                    scoreContainer.classList.add('hidden');
+                    scoreContainer.innerHTML = '';
+                } catch (error) {
+                    showMessage('Không thể lấy câu gợi ý để chấm điểm.', 'error');
+                    scoreContainer.classList.add('hidden');
+                    return;
+                }
+            }
+
+            recognition = new SpeechRecognition();
+            recognition.lang = 'zh-CN'; // Set to Mandarin Chinese
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            const recordBtnSpan = recordBtn.querySelector('span');
+            recognition.onstart = () => {
+                isRecording = true;
+                recordBtn.classList.add('recording');
+                recordBtnSpan.textContent = 'Đang ghi âm...';
+                scoreContainer.classList.add('hidden');
+            };
+
+            recognition.onresult = async (event) => {
+                const spokenTextHanzi = event.results[0][0].transcript;
+                scoreContainer.innerHTML = '<p class="text-center font-semibold">Đang chuyển sang Pinyin & chấm điểm...</p>';
+                scoreContainer.classList.remove('hidden');
+
+                try {
+                    // Convert recognized Hanzi to Pinyin for display
+                    const { prompt: pinyinPrompt, schema: pinyinSchema } = prompts.convertToPinyin(spokenTextHanzi);
+                    const pinyinResult = await callGemini(pinyinPrompt, pinyinSchema);
+                    const spokenTextPinyin = pinyinResult.pinyin;
+
+                    // Get score using original Hanzi for accuracy
+                    const { prompt: scorePrompt, schema: scoreSchema } = prompts.pronunciationScore(targetData.hanzi_suggestion, spokenTextHanzi);
+                    const result = await callGemini(scorePrompt, scoreSchema);
+
+                    // Display result with Pinyin
+                    scoreContainer.innerHTML = `
+                        <div class="pronunciation-score-card">
+                            <div class="score-circle">${result.score}%</div>
+                            <h4 class="card-title-alt">Bạn đã nói (Pinyin):</h4>
+                            <p class="text-lg italic font-mono">"${spokenTextPinyin}"</p>
+                            <h4 class="card-title-alt mt-4">Câu trả lời gợi ý (Pinyin):</h4>
+                            <p class="text-lg font-medium text-green-600 font-mono">"${targetData.pinyin_suggestion}"</p>
+                            <h4 class="card-title-alt mt-4">Nhận xét của AI:</h4>
+                            <p>${result.feedback}</p>
+                        </div>
+                    `;
+
+                } catch (error) {
+                    console.error('Lỗi chấm điểm phát âm:', error);
+                    scoreContainer.innerHTML = `<p class="text-red-500">Lỗi khi xử lý kết quả: ${error.message}</p>`;
+                }
+            };
+            recognition.onerror = (event) => { showMessage(`Lỗi ghi âm: ${event.error}`, 'error'); };
+            recognition.onend = () => {
+                isRecording = false;
+                recordBtn.classList.remove('recording');
+                recordBtnSpan.textContent = 'Ghi âm & Chấm điểm';
+            };
+            recognition.start();
+        }
+
+        function playFullDialogue(hanziLines) {
+            if (!('speechSynthesis' in window)) return;
+            if (speechSynthesis.speaking || speechSynthesis.pending) speechSynthesis.cancel();
+
+            isSpeakingFullDialogue = true;
+            currentUtteranceQueue = [...hanziLines];
+            if (isRecording) { if (recognition) recognition.stop(); }
+
+            const speakNextLine = () => {
+                if (currentUtteranceQueue.length > 0 && isSpeakingFullDialogue) {
+                    const line = currentUtteranceQueue.shift();
+                    const utterance = new SpeechSynthesisUtterance(line);
+                    const voices = speechSynthesis.getVoices().filter(voice => voice.lang.startsWith('zh'));
+                    if (voices.length > 0) {
+                        utterance.voice = voices.find(v => v.name.includes('Google') && v.lang === 'zh-CN') || voices[0];
+                        utterance.lang = 'zh-CN';
+                        utterance.rate = 0.9;
+                    }
+                    utterance.onend = () => speakNextLine();
+                    utterance.onerror = (e) => { console.error(e); speakNextLine(); };
+                    speechSynthesis.speak(utterance);
+                } else {
+                    isSpeakingFullDialogue = false;
+                }
+            };
+            speakNextLine();
+        }
+
+        // --- Conversation Simulator Logic ---
+        async function getNextAiResponse() {
+            const chatInput = document.getElementById('chatInput');
+            const chatSendButton = document.getElementById('chatSendButton');
+            try {
+                const context = conversationHistory.map(turn => `${turn.role}: ${turn.parts[0].text}`).join('\n');
+                const lastUserMessage = conversationHistory.length > 1 ? conversationHistory[conversationHistory.length - 1].parts[0].text : "(bắt đầu)";
+                const { prompt, schema } = prompts.conversationTurn(context, lastUserMessage);
+                const aiResponse = await callGemini(prompt, schema);
+
+                const modelResponse = { role: 'model', parts: [{ text: aiResponse.hanzi }] };
+                conversationHistory.push(modelResponse);
+                addMessageToUI(aiResponse.pinyin, aiResponse.vietnamese, 'ai', aiResponse.hanzi);
+            } catch (error) {
+                console.error("Lỗi hội thoại:", error);
+                addMessageToUI('Duìbùqǐ, wǒ hǎoxiàng yǒudiǎn wèntí.', 'Xin lỗi, tôi có chút vấn đề.', 'ai', '对不起，我好像有点问题。');
+            } finally {
+                if (chatInput) chatInput.disabled = false;
+                if (chatSendButton) chatSendButton.disabled = false;
+            }
+        }
+
+        function addMessageToUI(pinyinText, vietnameseTranslation, sender, hanziText) {
+            const messageArea = document.getElementById('messageArea');
+            if (!messageArea) return;
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${sender}`;
+            messageDiv.innerHTML = `
+                <div class="flex items-start justify-between">
+                    <div>
+                        <span class="font-mono">${pinyinText}</span>
+                        <p class="translation">(Dịch: ${vietnameseTranslation})</p>
+                    </div>
+                     <button class="icon-btn" onclick="speakText('${hanziText.replace(/'/g, "\\'")}')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M11.536 14.01A8.473 8.473 0 0 0 14.026 8a8.473 8.473 0 0 0-2.49-6.01l-1.414 1.414A6.472 6.472 0 0 1 12.026 8c0 1.966-.893 3.738-2.29 4.949l1.414 1.414z"/></svg>
+                    </button>
+                </div>
+            `;
+            messageArea.appendChild(messageDiv);
+            messageArea.scrollTop = messageArea.scrollHeight;
+        }
+
+        async function continueConversation() {
+            const chatInput = document.getElementById('chatInput');
+            const chatSendButton = document.getElementById('chatSendButton');
+            if (!chatInput) return;
+
+            const userMessagePinyin = chatInput.value.trim();
+            if (!userMessagePinyin) return;
+
+            chatInput.disabled = true;
+            if (chatSendButton) chatSendButton.disabled = true;
+
+            const userTurn = { role: 'user', parts: [{ text: userMessagePinyin }] };
+            conversationHistory.push(userTurn);
+
+            // We show the user's pinyin immediately, but we need Hanzi and translation for the bubble
+            // We can show a temporary message and update it
+            addMessageToUI(userMessagePinyin, "Đang dịch...", 'user', '');
+
+
+            try {
+                const { prompt, schema } = prompts.conversationCorrection(userMessagePinyin);
+                const correctionResult = await callGemini(prompt, schema);
+
+                // Update the user's last message bubble with the corrected info
+                const lastMessageBubble = document.querySelector('.chat-message.user:last-child');
+                if (lastMessageBubble) {
+                    addMessageToUI(userMessagePinyin, correctionResult.vietnameseTranslation, 'user', '');
+                    lastMessageBubble.remove(); // remove the temporary one
+                }
+
+                if (!correctionResult.isCorrect) {
+                    showCorrectionModal(correctionResult);
+                }
+            } catch (error) {
+                console.error("Lỗi kiểm tra ngữ pháp:", error);
+            }
+
+            chatInput.value = '';
+            await getNextAiResponse();
+        }
+
+        function showCorrectionModal(data) {
+            modalCorrectionContent.innerHTML = `
+                <div class="table-container">
+                <table class="correction-table w-full">
+                    <tr> <th class="w-1/3">Mục</th> <th>Nội dung</th> </tr>
+                    <tr> <td>📥 Pinyin gốc</td> <td class="font-mono">${data.originalPinyin}</td> </tr>
+                    <tr> <td>✅ Pinyin đã sửa</td> <td class="font-mono">${data.correctedPinyin}</td> </tr>
+                    <tr> <td>🛠️ Ghi chú</td> <td>${data.correctionNotes}</td> </tr>
+                    <tr> <td>🇳 Dịch nghĩa</td> <td>${data.vietnameseTranslation}</td> </tr>
+                </table>
+                </div>
+            `;
+            correctionModal.style.display = 'flex';
+        }
+
+        async function quickSearch() {
+            const input = vocabularyInput.value.trim();
+            if (!input) {
+                showMessage('Vui lòng nhập từ hoặc cụm từ để tra cứu.', 'error');
+                return;
+            }
+            hideAllSections();
+            quickSearchResults.innerHTML = `<div class="info-card p-4 flex items-center justify-center"> <div class="loading-spinner"></div> <span class="ml-3 text-gray-600 dark:text-gray-300">Đang tra cứu...</span> </div>`;
+
+            try {
+                const { prompt, schema } = prompts.quickLookup(input);
+                const data = await callGemini(prompt, schema);
+                renderers.quickLookup(data, quickSearchResults);
+                speakText(data.hanzi);
+            } catch (error) {
+                showMessage('Không thể tra cứu. Vui lòng thử lại.', 'error');
+                console.error('Lỗi tra cứu nhanh:', error);
+                quickSearchResults.innerHTML = `<div class="info-card p-4 text-center text-red-600 dark:text-red-400">Không tìm thấy kết quả cho "${input}".</div>`;
+            }
+        }
+
+        // --- Event Listeners ---
+        function attachEventListeners() {
+            document.getElementById('btnClearInput').addEventListener('click', clearInput);
+            document.getElementById('btnPasteClipboard').addEventListener('click', pasteFromClipboard);
+            document.getElementById('btnQuickSearch').addEventListener('click', quickSearch);
+
+            // Learn & Practice
+            document.getElementById('btnGenerateExplanation').addEventListener('click', generateExplanation);
+            document.getElementById('btnGenerateExamples').addEventListener('click', generateExamples);
+            document.getElementById('btnGenerateExercise').addEventListener('click', generateExercise);
+            document.getElementById('btnGenerateListeningFillInTheBlank').addEventListener('click', generateListeningFillInTheBlank);
+            document.getElementById('btnGenerateReadingAndQuestions').addEventListener('click', generateReadingAndQuestions);
+            document.getElementById('btnGenerateListeningAndQuestions').addEventListener('click', generateListeningAndQuestions);
+
+            // Create
+            document.getElementById('btnCorrectPinyin').addEventListener('click', correctPinyin);
+            document.getElementById('btnGenerateDialogue').addEventListener('click', generateDialogue);
+            document.getElementById('btnGenerateParagraphs').addEventListener('click', generateParagraphs);
+            document.getElementById('btnSummarizeText').addEventListener('click', summarizeText);
+            document.getElementById('btnGenerateSituationalSentences').addEventListener('click', generateSituationalSentences);
+
+            // Analyze
+            document.getElementById('btnCompareVocabulary').addEventListener('click', compareVocabulary);
+            document.getElementById('btnAnalyzeTones').addEventListener('click', analyzeTones);
+            document.getElementById('btnCheckPopularity').addEventListener('click', checkPopularity);
+            document.getElementById('btnTranslateSentence').addEventListener('click', translateSentence);
+
+
+            // Interactive
+            document.getElementById('btnStartConversationSimulator').addEventListener('click', startConversationSimulator);
+            document.getElementById('btnStartSpeakingPractice').addEventListener('click', startSpeakingPractice);
+            document.getElementById('btnStartPinyinPractice').addEventListener('click', startPinyinPractice);
+            document.getElementById('btnStartSpeakingPracticeManual').addEventListener('click', startSpeakingPracticeManual);
+
+            // External Links
+            document.getElementById('btnGoogleTranslate').addEventListener('click', () => openLink('googleTranslate'));
+            document.getElementById('btnPleco').addEventListener('click', () => openLink('pleco'));
+            document.getElementById('btnForvo').addEventListener('click', () => openLink('forvo'));
+            document.getElementById('btnGoogleImages').addEventListener('click', () => openLink('googleImages'));
+            document.getElementById('btnYouglish').addEventListener('click', () => openLink('youglish'));
+
+            // Modals
+            closeCorrectionModalBtn.addEventListener('click', () => { correctionModal.style.display = 'none'; });
+            window.addEventListener('click', (event) => { if (event.target == correctionModal) { correctionModal.style.display = 'none'; } });
+        }
+    </script>
+</body>
+
+</html>
